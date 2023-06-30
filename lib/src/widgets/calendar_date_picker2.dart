@@ -302,16 +302,16 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
     assert(debugCheckHasMaterial(context));
     assert(debugCheckHasMaterialLocalizations(context));
     assert(debugCheckHasDirectionality(context));
+
     return Stack(
       children: <Widget>[
         SizedBox(
-          height:
-              (widget.config.controlsHeight ?? C2Constants.subHeaderHeight) +
-                  C2Constants.maxDayPickerHeight,
+          height: C2Constants.maxDayPickerHeight +
+              (widget.config.controlsHeight ?? C2Constants.subHeaderHeight),
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _MonthPicker
-        DatePickerModeToggleButton(
+        C2PickerHeader(
           config: widget.config,
           mode: _mode,
           title: widget.config.modePickerTextHandler

@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/widgets/picker_toggle_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../calendar_date_picker2.dart';
@@ -7,8 +8,8 @@ import '../../calendar_date_picker2.dart';
 ///
 /// This appears above the calendar grid and allows the user to toggle the
 /// [DatePickerMode] to display either the calendar view or the year list.
-class DatePickerModeToggleButton extends StatefulWidget {
-  const DatePickerModeToggleButton({
+class C2PickerHeader extends StatefulWidget {
+  const C2PickerHeader({
     Key? key,
     required this.mode,
     required this.title,
@@ -33,40 +34,16 @@ class DatePickerModeToggleButton extends StatefulWidget {
       DatePickerModeToggleButtonState();
 }
 
-class DatePickerModeToggleButtonState extends State<DatePickerModeToggleButton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      value: widget.mode == DatePickerMode.year ? 0.5 : 0,
-      upperBound: 0.5,
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    );
-  }
-
-  @override
-  void didUpdateWidget(DatePickerModeToggleButton oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.mode == widget.mode) {
-      return;
+class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
+  bool get shouldShowMonthPicker {
+    if (widget.config.centerAlignModePicker == true) {
+      return false;
     }
-
-    if (widget.mode == DatePickerMode.year) {
-      _controller.forward();
-    } else {
-      _controller.reverse();
-    }
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    final Color controlColor = colorScheme.onSurface.withOpacity(0.60);
     var datePickerOffsetPadding = C2Constants.monthNavButtonsWidth;
     if (widget.config.centerAlignModePicker == true) {
       datePickerOffsetPadding /= 2;
@@ -78,6 +55,9 @@ class DatePickerModeToggleButtonState extends State<DatePickerModeToggleButton>
           : const EdgeInsetsDirectional.only(start: 16, end: 4),
       height: (widget.config.controlsHeight ?? C2Constants.subHeaderHeight),
       child: Row(
+        mainAxisAlignment: widget.config.centerAlignModePicker == true
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.start,
         children: <Widget>[
           if (widget.mode == DatePickerMode.day &&
               widget.config.centerAlignModePicker == true)
@@ -100,52 +80,39 @@ class DatePickerModeToggleButtonState extends State<DatePickerModeToggleButton>
                         horizontal: widget.config.centerAlignModePicker == true
                             ? 0
                             : 8),
-                    child: Row(
-                      mainAxisAlignment:
-                          widget.config.centerAlignModePicker == true
-                              ? MainAxisAlignment.center
-                              : MainAxisAlignment.start,
-                      children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            widget.title,
-                            overflow: TextOverflow.ellipsis,
-                            style: widget.config.controlsTextStyle ??
-                                textTheme.titleSmall?.copyWith(
-                                  color: controlColor,
-                                ),
-                          ),
-                        ),
-                        widget.config.disableModePicker == true
-                            ? const SizedBox()
-                            : RotationTransition(
-                                turns: _controller,
-                                child: widget.config.customModePickerIcon ??
-                                    Icon(
-                                      Icons.arrow_drop_down,
-                                      color: widget.config.controlsTextStyle
-                                              ?.color ??
-                                          controlColor,
-                                    ),
-                              ),
-                      ],
+                    child: C2PickerToggleButton(
+                      isExpanded: widget.mode == DatePickerMode.year,
+                      title: widget.title,
+                      config: widget.config,
                     ),
                   ),
                 ),
               ),
             ),
           ),
+          if (shouldShowMonthPicker)
+            Flexible(
+              child: InkWell(
+                onTap: widget.config.disableModePicker == true
+                    ? null
+                    : widget.onTitlePressed,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal:
+                          widget.config.centerAlignModePicker == true ? 0 : 8),
+                  child: C2PickerToggleButton(
+                    isExpanded: widget.mode == DatePickerMode.year,
+                    title: widget.title,
+                    config: widget.config,
+                  ),
+                ),
+              ),
+            ),
           if (widget.mode == DatePickerMode.day)
             // Give space for the prev/next month buttons that are underneath this row
             SizedBox(width: datePickerOffsetPadding),
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
