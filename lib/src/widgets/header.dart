@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 
 import '../../calendar_date_picker2.dart';
 
-/// A button that used to toggle the [C2DatePickerMode] for a date picker.
+/// Custom header to toggle the [C2DatePickerMode] for a date picker.
 ///
 /// This appears above the calendar grid and allows the user to toggle the
-/// [C2DatePickerMode] to display either the calendar view or the year list.
+/// [C2DatePickerMode] to display either the calendar view or the year list
+/// or month view.
 class C2PickerHeader extends StatefulWidget {
   const C2PickerHeader({
     Key? key,
     required this.mode,
-    required this.onMonthPickerTap,
-    required this.onYearPickerTap,
     required this.config,
     required this.yearPickerLabelFull,
     required this.yearPickerLabelShort,
     required this.monthPickerLabel,
+    required this.onMonthPickerTap,
+    required this.onYearPickerTap,
   }) : super(key: key);
 
   final String yearPickerLabelFull;
@@ -32,7 +33,7 @@ class C2PickerHeader extends StatefulWidget {
   /// The callback when the year picker is pressed.
   final VoidCallback onYearPickerTap;
 
-  /// The callback when the year picker is pressed.
+  /// The callback when the month picker is pressed.
   final VoidCallback onMonthPickerTap;
 
   /// The calendar configurations
@@ -117,7 +118,7 @@ class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
                       horizontal:
                           widget.config.centerAlignModePicker == true ? 0 : 8),
                   child: C2PickerToggleButton(
-                    isExpanded: widget.mode == C2DatePickerMode.year,
+                    isExpanded: widget.mode == C2DatePickerMode.month,
                     title: widget.monthPickerLabel,
                     config: widget.config,
                   ),
