@@ -1,9 +1,15 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:calendar_date_picker2/src/constants.dart';
 import 'package:calendar_date_picker2/src/widgets/year_picker_grid_view.dart';
+import 'package:calendar_date_picker2/src/widgets/year_picker_list_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+enum C2YearPickerMode {
+  grid,
+  list,
+}
 
 /// A scrollable grid of years to allow picking a year.
 ///
@@ -25,9 +31,12 @@ class C2YearPicker extends StatefulWidget {
     required this.selectedDates,
     required this.onChanged,
     required this.initialMonth,
+    this.mode = C2YearPickerMode.list,
     this.dragStartBehavior = DragStartBehavior.start,
     Key? key,
   }) : super(key: key);
+
+  final C2YearPickerMode mode;
 
   /// The calendar configurations
   final CalendarDatePicker2Config config;
@@ -59,26 +68,34 @@ class _C2YearPickerState extends State<C2YearPicker> {
   @override
   void initState() {
     super.initState();
-    final scrollOffset =
-        widget.selectedDates.isNotEmpty && widget.selectedDates[0] != null
-            ? _scrollOffsetForYear(widget.selectedDates[0]!)
-            : _scrollOffsetForYear(DateUtils.dateOnly(DateTime.now()));
-    _scrollController = ScrollController(initialScrollOffset: scrollOffset);
+    _scrollController =
+        ScrollController(initialScrollOffset: _getScrollOffset());
   }
 
   @override
   void didUpdateWidget(C2YearPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     if (widget.selectedDates != oldWidget.selectedDates) {
-      final scrollOffset =
-          widget.selectedDates.isNotEmpty && widget.selectedDates[0] != null
-              ? _scrollOffsetForYear(widget.selectedDates[0]!)
-              : _scrollOffsetForYear(DateUtils.dateOnly(DateTime.now()));
+      final scrollOffset = _getScrollOffset();
       _scrollController.jumpTo(scrollOffset);
     }
   }
 
-  double _scrollOffsetForYear(DateTime date) {
+  bool get isListMode => widget.mode == C2YearPickerMode.list;
+
+  double _getScrollOffset() {
+    if (widget.selectedDates.isNotEmpty && widget.selectedDates[0] != null) {
+      return isListMode
+          ? _scrollOffsetForYearList(widget.selectedDates.first!)
+          : _scrollOffsetForYearGrid(widget.selectedDates.first!);
+    }
+    return isListMode
+        ? _scrollOffsetForYearList(DateUtils.dateOnly(DateTime.now()))
+        : _scrollOffsetForYearGrid(DateUtils.dateOnly(DateTime.now()));
+  }
+
+  double _scrollOffsetForYearGrid(DateTime date) {
     final int initialYearIndex = date.year - widget.config.firstDate.year;
     final int initialYearRow =
         initialYearIndex ~/ C2Constants.yearPickerColumnCount;
@@ -87,6 +104,18 @@ class _C2YearPickerState extends State<C2YearPicker> {
     return _itemCount < minYears
         ? 0
         : centeredYearRow * C2Constants.yearPickerRowHeight;
+  }
+
+  double _scrollOffsetForYearList(DateTime date) {
+    final int initialYearIndex = date.year - widget.config.firstDate.year;
+    final int initialYearRow = initialYearIndex ~/ 1;
+    final int centeredYearRow = initialYearRow;
+
+    if (_itemCount < minYears) {
+      return 0;
+    }
+    var offset = centeredYearRow * C2Constants.yearPickerRowHeight;
+    return offset;
   }
 
   Widget _buildYearItem(BuildContext context, int index) {
@@ -194,12 +223,19 @@ class _C2YearPickerState extends State<C2YearPicker> {
       children: <Widget>[
         const Divider(),
         Expanded(
-          child: C2YearPickerGridView(
-            controller: _scrollController,
-            dragStartBehavior: widget.dragStartBehavior,
-            itemBuilder: _buildYearItem,
-            itemCount: math.max(_itemCount, minYears),
-          ),
+          child: widget.mode == C2YearPickerMode.list
+              ? C2YearPickerListView(
+                  controller: _scrollController,
+                  dragStartBehavior: widget.dragStartBehavior,
+                  itemBuilder: _buildYearItem,
+                  itemCount: math.max(_itemCount, minYears),
+                )
+              : C2YearPickerGridView(
+                  controller: _scrollController,
+                  dragStartBehavior: widget.dragStartBehavior,
+                  itemBuilder: _buildYearItem,
+                  itemCount: math.max(_itemCount, minYears),
+                ),
         ),
         const Divider(),
       ],
