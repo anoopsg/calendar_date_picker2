@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 
 enum CalendarDatePicker2Type { single, multi, range }
 
+enum C2DatePickerMode {
+  year,
+  month,
+  day,
+}
+
 typedef CalendarDayTextStylePredicate = TextStyle? Function({
   required DateTime date,
 });
@@ -43,7 +49,7 @@ class CalendarDatePicker2Config {
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    C2DatePickerMode? calendarViewMode,
     C2MonthPickerConfig? monthPickerConfig,
     C2YearPickerConfig? yearPickerConfig,
     this.weekdayLabels,
@@ -78,7 +84,7 @@ class CalendarDatePicker2Config {
         lastDate =
             DateUtils.dateOnly(lastDate ?? DateTime(DateTime.now().year + 50)),
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
-        calendarViewMode = calendarViewMode ?? DatePickerMode.day,
+        calendarViewMode = calendarViewMode ?? C2DatePickerMode.day,
         monthPickerConfig = monthPickerConfig ?? const C2MonthPickerConfig(),
         yearPickerConfig = yearPickerConfig ?? const C2YearPickerConfig();
 
@@ -95,7 +101,7 @@ class CalendarDatePicker2Config {
   final DateTime currentDate;
 
   /// The initially displayed view of the calendar picker.
-  final DatePickerMode calendarViewMode;
+  final C2DatePickerMode calendarViewMode;
 
   /// Custom weekday labels for the current locale, MUST starts from Sunday
   /// Examples:
@@ -192,7 +198,7 @@ class CalendarDatePicker2Config {
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    C2DatePickerMode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -278,7 +284,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    C2DatePickerMode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -387,7 +393,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    C2DatePickerMode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,

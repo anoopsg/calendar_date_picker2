@@ -36,15 +36,6 @@ class C2MonthPicker extends StatefulWidget {
 }
 
 class _C2MonthPickerState extends State<C2MonthPicker> {
-  //TODO: replace with solid implementation
-  String _getMonthLabel(DateTime date, BuildContext context) {
-    final labels =
-        MaterialLocalizations.of(context).formatMonthYear(date).split(' ');
-    return (labels.length == 2 && labels.first.length >= 3)
-        ? labels.first.substring(0, 3)
-        : 'Err';
-  }
-
   Widget _buildYearItem(BuildContext context, int index) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -52,7 +43,7 @@ class _C2MonthPickerState extends State<C2MonthPicker> {
     final int indexToMonth = index + 1;
     final DateTime displayedDate = widget.initialMonth;
 
-    final String monthLabel = _getMonthLabel(
+    final String monthLabel = getMonthLabelFromLocale(
       DateTime(displayedDate.year, indexToMonth),
       context,
     );

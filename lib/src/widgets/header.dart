@@ -4,27 +4,36 @@ import 'package:flutter/material.dart';
 
 import '../../calendar_date_picker2.dart';
 
-/// A button that used to toggle the [DatePickerMode] for a date picker.
+/// A button that used to toggle the [C2DatePickerMode] for a date picker.
 ///
 /// This appears above the calendar grid and allows the user to toggle the
-/// [DatePickerMode] to display either the calendar view or the year list.
+/// [C2DatePickerMode] to display either the calendar view or the year list.
 class C2PickerHeader extends StatefulWidget {
   const C2PickerHeader({
     Key? key,
     required this.mode,
-    required this.title,
-    required this.onTitlePressed,
+    required this.onMonthPickerTap,
+    required this.onYearPickerTap,
     required this.config,
+    required this.yearPickerLabelFull,
+    required this.yearPickerLabelShort,
+    required this.monthPickerLabel,
   }) : super(key: key);
 
+  final String yearPickerLabelFull;
+
+  final String yearPickerLabelShort;
+
+  final String monthPickerLabel;
+
   /// The current display of the calendar picker.
-  final DatePickerMode mode;
+  final C2DatePickerMode mode;
 
-  /// The text that displays the current month/year being viewed.
-  final String title;
+  /// The callback when the year picker is pressed.
+  final VoidCallback onYearPickerTap;
 
-  /// The callback when the title is pressed.
-  final VoidCallback onTitlePressed;
+  /// The callback when the year picker is pressed.
+  final VoidCallback onMonthPickerTap;
 
   /// The calendar configurations
   final CalendarDatePicker2Config config;
@@ -40,6 +49,13 @@ class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
       return false;
     }
     return true;
+  }
+
+  String get resolveYearLabel {
+    if (shouldShowMonthPicker) {
+      return widget.yearPickerLabelShort;
+    }
+    return widget.yearPickerLabelFull;
   }
 
   @override
@@ -59,7 +75,7 @@ class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
             ? MainAxisAlignment.center
             : MainAxisAlignment.start,
         children: <Widget>[
-          if (widget.mode == DatePickerMode.day &&
+          if (widget.mode == C2DatePickerMode.day &&
               widget.config.centerAlignModePicker == true)
             // Give space for the prev/next month buttons that are underneath this row
             SizedBox(width: datePickerOffsetPadding),
@@ -74,15 +90,15 @@ class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
                 child: InkWell(
                   onTap: widget.config.disableModePicker == true
                       ? null
-                      : widget.onTitlePressed,
+                      : widget.onYearPickerTap,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: widget.config.centerAlignModePicker == true
                             ? 0
                             : 8),
                     child: C2PickerToggleButton(
-                      isExpanded: widget.mode == DatePickerMode.year,
-                      title: widget.title,
+                      isExpanded: widget.mode == C2DatePickerMode.year,
+                      title: resolveYearLabel,
                       config: widget.config,
                     ),
                   ),
@@ -95,20 +111,20 @@ class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
               child: InkWell(
                 onTap: widget.config.disableModePicker == true
                     ? null
-                    : widget.onTitlePressed,
+                    : widget.onMonthPickerTap,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal:
                           widget.config.centerAlignModePicker == true ? 0 : 8),
                   child: C2PickerToggleButton(
-                    isExpanded: widget.mode == DatePickerMode.year,
-                    title: widget.title,
+                    isExpanded: widget.mode == C2DatePickerMode.year,
+                    title: widget.monthPickerLabel,
                     config: widget.config,
                   ),
                 ),
               ),
             ),
-          if (widget.mode == DatePickerMode.day)
+          if (widget.mode == C2DatePickerMode.day)
             // Give space for the prev/next month buttons that are underneath this row
             SizedBox(width: datePickerOffsetPadding),
         ],
