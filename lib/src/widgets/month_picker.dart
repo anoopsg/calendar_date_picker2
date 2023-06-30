@@ -140,6 +140,7 @@ class _C2MonthPickerState extends State<C2MonthPicker> {
         const Divider(),
         Expanded(
           child: C2MonthPickerGridView(
+            config: widget.config,
             dragStartBehavior: widget.dragStartBehavior,
             itemBuilder: _buildYearItem,
             itemCount: 12,

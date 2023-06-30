@@ -1,5 +1,4 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:calendar_date_picker2/src/constants.dart';
 import 'package:calendar_date_picker2/src/widgets/year_picker_grid_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -83,12 +82,12 @@ class _C2YearPickerState extends State<C2YearPicker> {
   double _scrollOffsetForYearGrid(DateTime date) {
     final int initialYearIndex = date.year - widget.config.firstDate.year;
     final int initialYearRow =
-        initialYearIndex ~/ C2Constants.yearPickerColumnCount;
+        initialYearIndex ~/ widget.config.yearPickerConfig.columnCount;
     // Move the offset down by 2 rows to approximately center it.
     final int centeredYearRow = initialYearRow - 2;
     return _itemCount < minYears
         ? 0
-        : centeredYearRow * C2Constants.yearPickerRowHeight;
+        : centeredYearRow * widget.config.yearPickerConfig.rowHeight;
   }
 
   Widget _buildYearItem(BuildContext context, int index) {
@@ -197,6 +196,7 @@ class _C2YearPickerState extends State<C2YearPicker> {
         const Divider(),
         Expanded(
           child: C2YearPickerGridView(
+            config: widget.config,
             controller: _scrollController,
             dragStartBehavior: widget.dragStartBehavior,
             itemBuilder: _buildYearItem,

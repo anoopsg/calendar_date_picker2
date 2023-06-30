@@ -11,9 +11,4 @@ class C2Constants {
   static const double monthPickerHorizontalPadding = 8.0;
   static const double monthNavButtonsWidth = 108.0;
   static const Duration monthScrollDuration = Duration(milliseconds: 200);
-
-  static const int yearPickerColumnCount = 3;
-  static const double yearPickerPadding = 16.0;
-  static const double yearPickerRowHeight = 52.0;
-  static const double yearPickerRowSpacing = 8.0;
 }

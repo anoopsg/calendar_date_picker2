@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/src/models/picker_config.dart';
 import 'package:flutter/material.dart';
 
 enum CalendarDatePicker2Type { single, multi, range }
@@ -43,6 +44,8 @@ class CalendarDatePicker2Config {
     DateTime? lastDate,
     DateTime? currentDate,
     DatePickerMode? calendarViewMode,
+    C2MonthPickerConfig? monthPickerConfig,
+    C2YearPickerConfig? yearPickerConfig,
     this.weekdayLabels,
     this.weekdayLabelTextStyle,
     this.firstDayOfWeek,
@@ -75,7 +78,9 @@ class CalendarDatePicker2Config {
         lastDate =
             DateUtils.dateOnly(lastDate ?? DateTime(DateTime.now().year + 50)),
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
-        calendarViewMode = calendarViewMode ?? DatePickerMode.day;
+        calendarViewMode = calendarViewMode ?? DatePickerMode.day,
+        monthPickerConfig = monthPickerConfig ?? const C2MonthPickerConfig(),
+        yearPickerConfig = yearPickerConfig ?? const C2YearPickerConfig();
 
   /// The enabled date picker mode
   final CalendarDatePicker2Type calendarType;
@@ -178,6 +183,10 @@ class CalendarDatePicker2Config {
   /// Function to control mode picker displayed text
   final CalendarModePickerTextHandler? modePickerTextHandler;
 
+  final C2MonthPickerConfig monthPickerConfig;
+
+  final C2YearPickerConfig yearPickerConfig;
+
   CalendarDatePicker2Config copyWith({
     CalendarDatePicker2Type? calendarType,
     DateTime? firstDate,
@@ -211,6 +220,8 @@ class CalendarDatePicker2Config {
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
     CalendarModePickerTextHandler? modePickerTextHandler,
+    C2MonthPickerConfig? monthPickerConfig,
+    C2YearPickerConfig? yearPickerConfig,
   }) {
     return CalendarDatePicker2Config(
       calendarType: calendarType ?? this.calendarType,
@@ -254,6 +265,8 @@ class CalendarDatePicker2Config {
       customModePickerIcon: customModePickerIcon ?? this.customModePickerIcon,
       modePickerTextHandler:
           modePickerTextHandler ?? this.modePickerTextHandler,
+      monthPickerConfig: monthPickerConfig ?? this.monthPickerConfig,
+      yearPickerConfig: yearPickerConfig ?? this.yearPickerConfig,
     );
   }
 }
@@ -293,6 +306,8 @@ class CalendarDatePicker2WithActionButtonsConfig
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
     CalendarModePickerTextHandler? modePickerTextHandler,
+    C2MonthPickerConfig? monthPickerConfig,
+    C2YearPickerConfig? yearPickerConfig,
     this.gapBetweenCalendarAndButtons,
     this.cancelButtonTextStyle,
     this.cancelButton,
@@ -335,6 +350,8 @@ class CalendarDatePicker2WithActionButtonsConfig
           centerAlignModePicker: centerAlignModePicker,
           customModePickerIcon: customModePickerIcon,
           modePickerTextHandler: modePickerTextHandler,
+          monthPickerConfig: monthPickerConfig,
+          yearPickerConfig: yearPickerConfig,
         );
 
   /// The gap between calendar and action buttons
@@ -407,6 +424,8 @@ class CalendarDatePicker2WithActionButtonsConfig
     bool? closeDialogOnCancelTapped,
     bool? closeDialogOnOkTapped,
     EdgeInsets? buttonPadding,
+    C2MonthPickerConfig? monthPickerConfig,
+    C2YearPickerConfig? yearPickerConfig,
   }) {
     return CalendarDatePicker2WithActionButtonsConfig(
       calendarType: calendarType ?? this.calendarType,
@@ -463,6 +482,8 @@ class CalendarDatePicker2WithActionButtonsConfig
       closeDialogOnOkTapped:
           closeDialogOnOkTapped ?? this.closeDialogOnOkTapped,
       buttonPadding: buttonPadding ?? this.buttonPadding,
+      monthPickerConfig: monthPickerConfig ?? this.monthPickerConfig,
+      yearPickerConfig: yearPickerConfig ?? this.yearPickerConfig,
     );
   }
 }

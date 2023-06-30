@@ -1,4 +1,4 @@
-import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,43 +10,50 @@ class C2YearPickerGridView extends StatelessWidget {
     required this.dragStartBehavior,
     required this.itemBuilder,
     required this.itemCount,
+    required this.config,
   }) : super(key: key);
 
   final ScrollController controller;
   final DragStartBehavior dragStartBehavior;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
+  final CalendarDatePicker2Config config;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       controller: controller,
       dragStartBehavior: dragStartBehavior,
-      gridDelegate: const _YearPickerGridDelegate(),
+      gridDelegate: _YearPickerGridDelegate(config: config),
       itemBuilder: itemBuilder,
       itemCount: itemCount,
-      padding: const EdgeInsets.symmetric(
-        horizontal: C2Constants.yearPickerPadding,
+      padding: EdgeInsets.symmetric(
+        horizontal: config.yearPickerConfig.padding,
       ),
     );
   }
 }
 
 class _YearPickerGridDelegate extends SliverGridDelegate {
-  const _YearPickerGridDelegate();
+  const _YearPickerGridDelegate({
+    required this.config,
+  });
+
+  final CalendarDatePicker2Config config;
 
   @override
   SliverGridLayout getLayout(SliverConstraints constraints) {
-    final double tileWidth = (constraints.crossAxisExtent -
-            (C2Constants.yearPickerColumnCount - 1) *
-                C2Constants.yearPickerRowSpacing) /
-        C2Constants.yearPickerColumnCount;
+    final cnf = config.yearPickerConfig;
+
+    final double tileWidth =
+        (constraints.crossAxisExtent - (cnf.columnCount - 1) * cnf.rowSpacing) /
+            cnf.columnCount;
     return SliverGridRegularTileLayout(
       childCrossAxisExtent: tileWidth,
-      childMainAxisExtent: C2Constants.yearPickerRowHeight,
-      crossAxisCount: C2Constants.yearPickerColumnCount,
-      crossAxisStride: tileWidth + C2Constants.yearPickerRowSpacing,
-      mainAxisStride: C2Constants.yearPickerRowHeight,
+      childMainAxisExtent: cnf.rowHeight,
+      crossAxisCount: cnf.columnCount,
+      crossAxisStride: tileWidth + cnf.rowSpacing,
+      mainAxisStride: cnf.rowHeight,
       reverseCrossAxis: axisDirectionIsReversed(constraints.crossAxisDirection),
     );
   }
