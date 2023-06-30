@@ -4,7 +4,6 @@
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:calendar_date_picker2/src/constants.dart';
-import 'package:calendar_date_picker2/src/widgets/month_picker.dart';
 import 'package:calendar_date_picker2/src/widgets/year_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

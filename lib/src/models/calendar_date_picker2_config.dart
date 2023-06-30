@@ -24,6 +24,14 @@ typedef CalendarYearBuilder = Widget? Function({
   bool? isCurrentYear,
 });
 
+typedef CalendarMonthPickerBuilder = Widget? Function({
+  required int month,
+  TextStyle? textStyle,
+  BoxDecoration? decoration,
+  bool? isSelected,
+  bool? isDisabled,
+});
+
 typedef CalendarModePickerTextHandler = String? Function({
   required DateTime monthDate,
 });
@@ -56,6 +64,7 @@ class CalendarDatePicker2Config {
     this.dayTextStylePredicate,
     this.dayBuilder,
     this.yearBuilder,
+    this.monthPickerBuilder,
     this.disableModePicker,
     this.centerAlignModePicker,
     this.customModePickerIcon,
@@ -155,6 +164,8 @@ class CalendarDatePicker2Config {
   /// Function to provide full control over year widget UI
   final CalendarYearBuilder? yearBuilder;
 
+  final CalendarMonthPickerBuilder? monthPickerBuilder;
+
   /// Flag to disable mode picker and hide the mode toggle button icon
   final bool? disableModePicker;
 
@@ -195,6 +206,7 @@ class CalendarDatePicker2Config {
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
     CalendarYearBuilder? yearBuilder,
+    CalendarMonthPickerBuilder? monthPickerBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
@@ -235,6 +247,7 @@ class CalendarDatePicker2Config {
           dayTextStylePredicate ?? this.dayTextStylePredicate,
       dayBuilder: dayBuilder ?? this.dayBuilder,
       yearBuilder: yearBuilder ?? this.yearBuilder,
+      monthPickerBuilder: monthPickerBuilder ?? this.monthPickerBuilder,
       disableModePicker: disableModePicker ?? this.disableModePicker,
       centerAlignModePicker:
           centerAlignModePicker ?? this.centerAlignModePicker,
@@ -275,6 +288,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
     CalendarYearBuilder? yearBuilder,
+    CalendarMonthPickerBuilder? monthPickerBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
@@ -316,6 +330,7 @@ class CalendarDatePicker2WithActionButtonsConfig
           dayTextStylePredicate: dayTextStylePredicate,
           dayBuilder: dayBuilder,
           yearBuilder: yearBuilder,
+          monthPickerBuilder: monthPickerBuilder,
           disableModePicker: disableModePicker,
           centerAlignModePicker: centerAlignModePicker,
           customModePickerIcon: customModePickerIcon,
@@ -378,6 +393,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
     CalendarYearBuilder? yearBuilder,
+    CalendarMonthPickerBuilder? monthPickerBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
@@ -427,6 +443,7 @@ class CalendarDatePicker2WithActionButtonsConfig
           dayTextStylePredicate ?? this.dayTextStylePredicate,
       dayBuilder: dayBuilder ?? this.dayBuilder,
       yearBuilder: yearBuilder ?? this.yearBuilder,
+      monthPickerBuilder: monthPickerBuilder,
       disableModePicker: disableModePicker ?? this.disableModePicker,
       centerAlignModePicker:
           centerAlignModePicker ?? this.centerAlignModePicker,

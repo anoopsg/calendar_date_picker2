@@ -1,5 +1,4 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:calendar_date_picker2/src/constants.dart';
 import 'package:calendar_date_picker2/src/widgets/month_picker_grid_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -88,31 +87,30 @@ class _C2MonthPickerState extends State<C2MonthPicker> {
       );
     }
 
-    // Widget yearItem = widget.config.yearBuilder?.call(
-    //       year: year,
-    //       textStyle: itemStyle,
-    //       decoration: decoration,
-    //       isSelected: isSelected,
-    //       isDisabled: isDisabled,
-    //       isCurrentYear: isCurrentYear,
-    //     ) ??
-    Widget monthItem = Center(
-      child: Container(
-        decoration: decoration,
-        height: decorationHeight,
-        width: decorationWidth,
-        child: Center(
-          child: Semantics(
-            selected: isSelected,
-            button: true,
-            child: Text(
-              monthLabel.toString(),
-              style: itemStyle,
+    Widget monthItem = widget.config.monthPickerBuilder?.call(
+          month: indexToMonth,
+          textStyle: itemStyle,
+          decoration: decoration,
+          isSelected: isSelected,
+          isDisabled: isDisabled,
+        ) ??
+        Center(
+          child: Container(
+            decoration: decoration,
+            height: decorationHeight,
+            width: decorationWidth,
+            child: Center(
+              child: Semantics(
+                selected: isSelected,
+                button: true,
+                child: Text(
+                  monthLabel.toString(),
+                  style: itemStyle,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        );
 
     if (isDisabled) {
       monthItem = ExcludeSemantics(
