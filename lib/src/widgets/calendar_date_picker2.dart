@@ -4,13 +4,14 @@
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/widgets/month_picker.dart';
 import 'package:calendar_date_picker2/src/widgets/year_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import 'header.dart';
-import 'month_picker.dart';
+import 'calendar_view.dart';
 
 class CalendarDatePicker2 extends StatefulWidget {
   CalendarDatePicker2({
@@ -258,7 +259,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
   Widget _buildPicker() {
     switch (_mode) {
       case DatePickerMode.day:
-        return C2MonthPicker(
+        return C2CalendarView(
           config: widget.config,
           key: _monthPickerKey,
           initialMonth: _currentDisplayedMonthDate,
@@ -278,6 +279,22 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
             onChanged: _handleYearChanged,
           ),
         );
+      // case DatePickerMode.year:
+      //   return Padding(
+      //     padding: EdgeInsets.only(
+      //       top: widget.config.controlsHeight ?? C2Constants.subHeaderHeight,
+      //     ),
+      //     child: C2MonthPicker(
+      //       config: widget.config,
+      //       key: _yearPickerKey,
+      //       initialMonth: _currentDisplayedMonthDate,
+      //       selectedDates: _selectedDates,
+      //       onChanged: (date) {
+      //         _handleMonthChanged(date);
+      //         _handleModeChanged(DatePickerMode.day);
+      //       },
+      //     ),
+      //   );
     }
   }
 
