@@ -326,31 +326,37 @@ class _CalendarViewState extends State<CalendarView> {
                 ? const EdgeInsetsDirectional.only(start: 16, end: 4)
                 : const EdgeInsetsDirectional.only(start: 8, end: 8),
             height: (widget.config.controlsHeight ?? Settings.subHeaderHeight),
-            child: Row(
-              children: <Widget>[
-                if (widget.config.centerAlignModePicker != true) const Spacer(),
-                IconButton(
-                  icon: widget.config.lastMonthIcon ??
-                      const Icon(Icons.chevron_left),
-                  color: controlColor,
-                  tooltip: _isDisplayingFirstMonth
-                      ? null
-                      : _localizations.previousMonthTooltip,
-                  onPressed:
-                      _isDisplayingFirstMonth ? null : _handlePreviousMonth,
-                ),
-                if (widget.config.centerAlignModePicker == true) const Spacer(),
-                IconButton(
-                  icon: widget.config.nextMonthIcon ??
-                      const Icon(Icons.chevron_right),
-                  color: controlColor,
-                  tooltip: _isDisplayingLastMonth
-                      ? null
-                      : _localizations.nextMonthTooltip,
-                  onPressed: _isDisplayingLastMonth ? null : _handleNextMonth,
-                ),
-              ],
-            ),
+            child: widget.config.disableMonthPagination
+                ? const SizedBox.shrink()
+                : Row(
+                    children: <Widget>[
+                      if (widget.config.centerAlignModePicker != true)
+                        const Spacer(),
+                      IconButton(
+                        icon: widget.config.lastMonthIcon ??
+                            const Icon(Icons.chevron_left),
+                        color: controlColor,
+                        tooltip: _isDisplayingFirstMonth
+                            ? null
+                            : _localizations.previousMonthTooltip,
+                        onPressed: _isDisplayingFirstMonth
+                            ? null
+                            : _handlePreviousMonth,
+                      ),
+                      if (widget.config.centerAlignModePicker == true)
+                        const Spacer(),
+                      IconButton(
+                        icon: widget.config.nextMonthIcon ??
+                            const Icon(Icons.chevron_right),
+                        color: controlColor,
+                        tooltip: _isDisplayingLastMonth
+                            ? null
+                            : _localizations.nextMonthTooltip,
+                        onPressed:
+                            _isDisplayingLastMonth ? null : _handleNextMonth,
+                      ),
+                    ],
+                  ),
           ),
           Expanded(
             child: FocusableActionDetector(

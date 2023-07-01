@@ -79,6 +79,7 @@ class CalendarDatePicker2Config {
     this.customModePickerIcon,
     this.modePickerTextHandler,
     this.selectedRangeDayTextStyle,
+    bool? disableMonthPagination,
   })  : calendarType = calendarType ?? CalendarDatePicker2Type.single,
         firstDate = DateUtils.dateOnly(firstDate ?? DateTime(1970)),
         lastDate =
@@ -86,7 +87,8 @@ class CalendarDatePicker2Config {
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
         calendarViewMode = calendarViewMode ?? C2DatePickerMode.day,
         monthPickerConfig = monthPickerConfig ?? const MonthPickerConfig(),
-        yearPickerConfig = yearPickerConfig ?? const YearPickerConfig();
+        yearPickerConfig = yearPickerConfig ?? const YearPickerConfig(),
+        disableMonthPagination = disableMonthPagination ?? false;
 
   /// The enabled date picker mode
   final CalendarDatePicker2Type calendarType;
@@ -193,6 +195,8 @@ class CalendarDatePicker2Config {
 
   final YearPickerConfig yearPickerConfig;
 
+  final bool disableMonthPagination;
+
   CalendarDatePicker2Config copyWith({
     CalendarDatePicker2Type? calendarType,
     DateTime? firstDate,
@@ -228,6 +232,7 @@ class CalendarDatePicker2Config {
     CalendarModePickerTextHandler? modePickerTextHandler,
     MonthPickerConfig? monthPickerConfig,
     YearPickerConfig? yearPickerConfig,
+    bool? disableMonthPagination,
   }) {
     return CalendarDatePicker2Config(
       calendarType: calendarType ?? this.calendarType,
@@ -273,6 +278,8 @@ class CalendarDatePicker2Config {
           modePickerTextHandler ?? this.modePickerTextHandler,
       monthPickerConfig: monthPickerConfig ?? this.monthPickerConfig,
       yearPickerConfig: yearPickerConfig ?? this.yearPickerConfig,
+      disableMonthPagination:
+          disableMonthPagination ?? this.disableMonthPagination,
     );
   }
 }
@@ -323,6 +330,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     this.closeDialogOnCancelTapped,
     this.closeDialogOnOkTapped,
     this.buttonPadding,
+    bool? disableMonthPagination,
   }) : super(
           calendarType: calendarType,
           firstDate: firstDate,
@@ -358,6 +366,7 @@ class CalendarDatePicker2WithActionButtonsConfig
           modePickerTextHandler: modePickerTextHandler,
           monthPickerConfig: monthPickerConfig,
           yearPickerConfig: yearPickerConfig,
+          disableMonthPagination: disableMonthPagination,
         );
 
   /// The gap between calendar and action buttons
@@ -432,6 +441,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     EdgeInsets? buttonPadding,
     MonthPickerConfig? monthPickerConfig,
     YearPickerConfig? yearPickerConfig,
+    bool? disableMonthPagination,
   }) {
     return CalendarDatePicker2WithActionButtonsConfig(
       calendarType: calendarType ?? this.calendarType,
@@ -490,6 +500,8 @@ class CalendarDatePicker2WithActionButtonsConfig
       buttonPadding: buttonPadding ?? this.buttonPadding,
       monthPickerConfig: monthPickerConfig ?? this.monthPickerConfig,
       yearPickerConfig: yearPickerConfig ?? this.yearPickerConfig,
+      disableMonthPagination:
+          disableMonthPagination ?? this.disableMonthPagination,
     );
   }
 }
