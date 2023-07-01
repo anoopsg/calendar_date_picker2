@@ -32,10 +32,10 @@ class MonthPicker extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<MonthPicker> createState() => _C2MonthPickerState();
+  State<MonthPicker> createState() => _MonthPickerState();
 }
 
-class _C2MonthPickerState extends State<MonthPicker> {
+class _MonthPickerState extends State<MonthPicker> {
   Widget _buildYearItem(BuildContext context, int index) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -130,7 +130,7 @@ class _C2MonthPickerState extends State<MonthPicker> {
       children: <Widget>[
         const Divider(),
         Expanded(
-          child: C2MonthPickerGridView(
+          child: MonthPickerGridView(
             config: widget.config,
             dragStartBehavior: widget.dragStartBehavior,
             itemBuilder: _buildYearItem,

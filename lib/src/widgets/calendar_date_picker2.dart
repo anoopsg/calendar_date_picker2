@@ -9,7 +9,7 @@ import 'package:flutter/material.dart' hide YearPicker;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
-import 'header.dart';
+import 'calendar_header.dart';
 import 'calendar_view.dart';
 import 'month_picker.dart';
 
@@ -259,7 +259,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
   Widget _buildPicker() {
     switch (_mode) {
       case C2DatePickerMode.day:
-        return C2CalendarView(
+        return CalendarView(
           config: widget.config,
           key: _monthPickerKey,
           initialMonth: _currentDisplayedMonthDate,
@@ -312,7 +312,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _MonthPicker
-        C2PickerHeader(
+        CalendarHeader(
           config: widget.config,
           mode: _mode,
           yearPickerLabelFull: widget.config.modePickerTextHandler

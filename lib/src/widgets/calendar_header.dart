@@ -9,8 +9,8 @@ import '../../calendar_date_picker2.dart';
 /// This appears above the calendar grid and allows the user to toggle the
 /// [C2DatePickerMode] to display either the calendar view or the year list
 /// or month view.
-class C2PickerHeader extends StatefulWidget {
-  const C2PickerHeader({
+class CalendarHeader extends StatefulWidget {
+  const CalendarHeader({
     Key? key,
     required this.mode,
     required this.config,
@@ -44,7 +44,7 @@ class C2PickerHeader extends StatefulWidget {
       DatePickerModeToggleButtonState();
 }
 
-class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
+class DatePickerModeToggleButtonState extends State<CalendarHeader> {
   bool get shouldShowMonthPicker {
     if (widget.config.centerAlignModePicker == true) {
       return false;
@@ -97,7 +97,7 @@ class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
                         horizontal: widget.config.centerAlignModePicker == true
                             ? 0
                             : 8),
-                    child: C2PickerToggleButton(
+                    child: PickerToggleButton(
                       isExpanded: widget.mode == C2DatePickerMode.year,
                       title: resolveYearLabel,
                       config: widget.config,
@@ -117,7 +117,7 @@ class DatePickerModeToggleButtonState extends State<C2PickerHeader> {
                   padding: EdgeInsets.symmetric(
                       horizontal:
                           widget.config.centerAlignModePicker == true ? 0 : 8),
-                  child: C2PickerToggleButton(
+                  child: PickerToggleButton(
                     isExpanded: widget.mode == C2DatePickerMode.month,
                     title: widget.monthPickerLabel,
                     config: widget.config,

@@ -61,12 +61,3 @@ class _YearPickerGridDelegate extends SliverGridDelegate {
   @override
   bool shouldRelayout(_YearPickerGridDelegate oldDelegate) => false;
 }
-
-class C2YearPickerDefaultGridItem extends StatelessWidget {
-  const C2YearPickerDefaultGridItem({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

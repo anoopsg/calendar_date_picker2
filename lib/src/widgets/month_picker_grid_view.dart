@@ -3,8 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class C2MonthPickerGridView extends StatelessWidget {
-  const C2MonthPickerGridView({
+class MonthPickerGridView extends StatelessWidget {
+  const MonthPickerGridView({
     Key? key,
     this.controller,
     required this.dragStartBehavior,

@@ -9,9 +9,9 @@ import 'focus_date.dart';
 
 T? _ambiguate<T>(T? value) => value;
 
-class C2CalendarView extends StatefulWidget {
+class CalendarView extends StatefulWidget {
   /// Creates a month picker.
-  const C2CalendarView({
+  const CalendarView({
     required this.config,
     required this.initialMonth,
     required this.selectedDates,
@@ -38,10 +38,10 @@ class C2CalendarView extends StatefulWidget {
   final ValueChanged<DateTime> onDisplayedMonthChanged;
 
   @override
-  C2CalendarViewState createState() => C2CalendarViewState();
+  State<CalendarView> createState() => _CalendarViewState();
 }
 
-class C2CalendarViewState extends State<C2CalendarView> {
+class _CalendarViewState extends State<CalendarView> {
   final GlobalKey _pageViewKey = GlobalKey();
   late DateTime _currentMonth;
   late PageController _pageController;
@@ -88,7 +88,7 @@ class C2CalendarViewState extends State<C2CalendarView> {
   }
 
   @override
-  void didUpdateWidget(C2CalendarView oldWidget) {
+  void didUpdateWidget(CalendarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.initialMonth != oldWidget.initialMonth &&
         widget.initialMonth != _currentMonth) {
