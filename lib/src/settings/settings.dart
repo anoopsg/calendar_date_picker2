@@ -1,6 +1,4 @@
-class C2Constants {
-  C2Constants._(); // Private constructor
-
+abstract class Settings {
   static const double dayPickerRowHeight = 42.0;
   static const double subHeaderHeight = 52.0;
   // A 31 day month that starts on Saturday.

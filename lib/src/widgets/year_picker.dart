@@ -17,9 +17,9 @@ import 'dart:math' as math;
 ///  * [showDatePicker2], which shows a dialog containing a Material Design
 ///    date picker.
 ///
-class C2YearPicker extends StatefulWidget {
+class YearPicker extends StatefulWidget {
   /// Creates a year picker.
-  const C2YearPicker({
+  const YearPicker({
     required this.config,
     required this.selectedDates,
     required this.onChanged,
@@ -46,10 +46,10 @@ class C2YearPicker extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<C2YearPicker> createState() => _C2YearPickerState();
+  State<YearPicker> createState() => _YearPickerState();
 }
 
-class _C2YearPickerState extends State<C2YearPicker> {
+class _YearPickerState extends State<YearPicker> {
   late ScrollController _scrollController;
 
   // The approximate number of years necessary to fill the available space.
@@ -63,7 +63,7 @@ class _C2YearPickerState extends State<C2YearPicker> {
   }
 
   @override
-  void didUpdateWidget(C2YearPicker oldWidget) {
+  void didUpdateWidget(YearPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (widget.selectedDates != oldWidget.selectedDates) {
@@ -195,7 +195,7 @@ class _C2YearPickerState extends State<C2YearPicker> {
       children: <Widget>[
         const Divider(),
         Expanded(
-          child: C2YearPickerGridView(
+          child: YearPickerGridView(
             config: widget.config,
             controller: _scrollController,
             dragStartBehavior: widget.dragStartBehavior,

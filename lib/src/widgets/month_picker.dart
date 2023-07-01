@@ -3,9 +3,9 @@ import 'package:calendar_date_picker2/src/widgets/month_picker_grid_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class C2MonthPicker extends StatefulWidget {
-  /// Creates a year picker.
-  const C2MonthPicker({
+class MonthPicker extends StatefulWidget {
+  /// Creates a month picker.
+  const MonthPicker({
     required this.config,
     required this.selectedDates,
     required this.onChanged,
@@ -32,10 +32,10 @@ class C2MonthPicker extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<C2MonthPicker> createState() => _C2MonthPickerState();
+  State<MonthPicker> createState() => _C2MonthPickerState();
 }
 
-class _C2MonthPickerState extends State<C2MonthPicker> {
+class _C2MonthPickerState extends State<MonthPicker> {
   Widget _buildYearItem(BuildContext context, int index) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;

@@ -3,8 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class C2YearPickerGridView extends StatelessWidget {
-  const C2YearPickerGridView({
+class YearPickerGridView extends StatelessWidget {
+  const YearPickerGridView({
     Key? key,
     required this.controller,
     required this.dragStartBehavior,

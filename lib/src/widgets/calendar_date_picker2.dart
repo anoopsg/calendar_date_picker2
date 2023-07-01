@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/settings/settings.dart';
 import 'package:calendar_date_picker2/src/widgets/year_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide YearPicker;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
@@ -270,8 +270,8 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
       case C2DatePickerMode.year:
         return Padding(
           padding: EdgeInsets.only(
-              top: widget.config.controlsHeight ?? C2Constants.subHeaderHeight),
-          child: C2YearPicker(
+              top: widget.config.controlsHeight ?? Settings.subHeaderHeight),
+          child: YearPicker(
             config: widget.config,
             key: _yearPickerKey,
             initialMonth: _currentDisplayedMonthDate,
@@ -282,9 +282,9 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
       case C2DatePickerMode.month:
         return Padding(
           padding: EdgeInsets.only(
-            top: widget.config.controlsHeight ?? C2Constants.subHeaderHeight,
+            top: widget.config.controlsHeight ?? Settings.subHeaderHeight,
           ),
-          child: C2MonthPicker(
+          child: MonthPicker(
             config: widget.config,
             key: _yearPickerKey,
             initialMonth: _currentDisplayedMonthDate,
@@ -307,8 +307,8 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
     return Stack(
       children: <Widget>[
         SizedBox(
-          height: C2Constants.maxDayPickerHeight +
-              (widget.config.controlsHeight ?? C2Constants.subHeaderHeight),
+          height: Settings.maxDayPickerHeight +
+              (widget.config.controlsHeight ?? Settings.subHeaderHeight),
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _MonthPicker
