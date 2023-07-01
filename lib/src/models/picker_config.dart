@@ -1,5 +1,5 @@
-abstract class C2PickerConfig {
-  const C2PickerConfig({
+abstract class _PickerConfig {
+  const _PickerConfig({
     required this.padding,
     required this.rowHeight,
     required this.rowSpacing,
@@ -12,8 +12,8 @@ abstract class C2PickerConfig {
   final int columnCount;
 }
 
-class C2MonthPickerConfig extends C2PickerConfig {
-  const C2MonthPickerConfig({
+class MonthPickerConfig extends _PickerConfig {
+  const MonthPickerConfig({
     double rowSpacing = 8.0,
     double padding = 16.0,
     double rowHeight = 52.0,
@@ -25,13 +25,13 @@ class C2MonthPickerConfig extends C2PickerConfig {
           columnCount: columnCount,
         );
 
-  C2MonthPickerConfig copyWith({
+  MonthPickerConfig copyWith({
     double? rowSpacing,
     double? padding,
     double? rowHeight,
     int? columnCount,
   }) {
-    return C2MonthPickerConfig(
+    return MonthPickerConfig(
       rowHeight: rowHeight ?? this.rowHeight,
       rowSpacing: rowSpacing ?? this.rowSpacing,
       padding: padding ?? this.padding,
@@ -40,8 +40,8 @@ class C2MonthPickerConfig extends C2PickerConfig {
   }
 }
 
-class C2YearPickerConfig extends C2PickerConfig {
-  const C2YearPickerConfig({
+class YearPickerConfig extends _PickerConfig {
+  const YearPickerConfig({
     double rowSpacing = 8.0,
     double padding = 16.0,
     double rowHeight = 52.0,
@@ -53,13 +53,13 @@ class C2YearPickerConfig extends C2PickerConfig {
           columnCount: columnCount,
         );
 
-  C2YearPickerConfig copyWith({
+  YearPickerConfig copyWith({
     double? rowSpacing,
     double? padding,
     double? rowHeight,
     int? columnCount,
   }) {
-    return C2YearPickerConfig(
+    return YearPickerConfig(
       rowHeight: rowHeight ?? this.rowHeight,
       rowSpacing: rowSpacing ?? this.rowSpacing,
       padding: padding ?? this.padding,

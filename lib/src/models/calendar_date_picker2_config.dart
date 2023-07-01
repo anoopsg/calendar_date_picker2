@@ -50,8 +50,8 @@ class CalendarDatePicker2Config {
     DateTime? lastDate,
     DateTime? currentDate,
     C2DatePickerMode? calendarViewMode,
-    C2MonthPickerConfig? monthPickerConfig,
-    C2YearPickerConfig? yearPickerConfig,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
     this.weekdayLabels,
     this.weekdayLabelTextStyle,
     this.firstDayOfWeek,
@@ -85,8 +85,8 @@ class CalendarDatePicker2Config {
             DateUtils.dateOnly(lastDate ?? DateTime(DateTime.now().year + 50)),
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
         calendarViewMode = calendarViewMode ?? C2DatePickerMode.day,
-        monthPickerConfig = monthPickerConfig ?? const C2MonthPickerConfig(),
-        yearPickerConfig = yearPickerConfig ?? const C2YearPickerConfig();
+        monthPickerConfig = monthPickerConfig ?? const MonthPickerConfig(),
+        yearPickerConfig = yearPickerConfig ?? const YearPickerConfig();
 
   /// The enabled date picker mode
   final CalendarDatePicker2Type calendarType;
@@ -189,9 +189,9 @@ class CalendarDatePicker2Config {
   /// Function to control mode picker displayed text
   final CalendarModePickerTextHandler? modePickerTextHandler;
 
-  final C2MonthPickerConfig monthPickerConfig;
+  final MonthPickerConfig monthPickerConfig;
 
-  final C2YearPickerConfig yearPickerConfig;
+  final YearPickerConfig yearPickerConfig;
 
   CalendarDatePicker2Config copyWith({
     CalendarDatePicker2Type? calendarType,
@@ -226,8 +226,8 @@ class CalendarDatePicker2Config {
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
     CalendarModePickerTextHandler? modePickerTextHandler,
-    C2MonthPickerConfig? monthPickerConfig,
-    C2YearPickerConfig? yearPickerConfig,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
   }) {
     return CalendarDatePicker2Config(
       calendarType: calendarType ?? this.calendarType,
@@ -312,8 +312,8 @@ class CalendarDatePicker2WithActionButtonsConfig
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
     CalendarModePickerTextHandler? modePickerTextHandler,
-    C2MonthPickerConfig? monthPickerConfig,
-    C2YearPickerConfig? yearPickerConfig,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
     this.gapBetweenCalendarAndButtons,
     this.cancelButtonTextStyle,
     this.cancelButton,
@@ -430,8 +430,8 @@ class CalendarDatePicker2WithActionButtonsConfig
     bool? closeDialogOnCancelTapped,
     bool? closeDialogOnOkTapped,
     EdgeInsets? buttonPadding,
-    C2MonthPickerConfig? monthPickerConfig,
-    C2YearPickerConfig? yearPickerConfig,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
   }) {
     return CalendarDatePicker2WithActionButtonsConfig(
       calendarType: calendarType ?? this.calendarType,
