@@ -1,4 +1,4 @@
-import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -9,9 +9,9 @@ import 'focus_date.dart';
 
 T? _ambiguate<T>(T? value) => value;
 
-class C2MonthPicker extends StatefulWidget {
+class MonthPicker extends StatefulWidget {
   /// Creates a month picker.
-  const C2MonthPicker({
+  const MonthPicker({
     required this.config,
     required this.initialMonth,
     required this.selectedDates,
@@ -38,10 +38,10 @@ class C2MonthPicker extends StatefulWidget {
   final ValueChanged<DateTime> onDisplayedMonthChanged;
 
   @override
-  C2MonthPickerState createState() => C2MonthPickerState();
+  MonthPickerState createState() => MonthPickerState();
 }
 
-class C2MonthPickerState extends State<C2MonthPicker> {
+class MonthPickerState extends State<MonthPicker> {
   final GlobalKey _pageViewKey = GlobalKey();
   late DateTime _currentMonth;
   late PageController _pageController;
@@ -88,7 +88,7 @@ class C2MonthPickerState extends State<C2MonthPicker> {
   }
 
   @override
-  void didUpdateWidget(C2MonthPicker oldWidget) {
+  void didUpdateWidget(MonthPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.initialMonth != oldWidget.initialMonth &&
         widget.initialMonth != _currentMonth) {
@@ -162,7 +162,7 @@ class C2MonthPickerState extends State<C2MonthPicker> {
   void _handleNextMonth() {
     if (!_isDisplayingLastMonth) {
       _pageController.nextPage(
-        duration: C2Constants.monthScrollDuration,
+        duration: Settings.monthScrollDuration,
         curve: Curves.ease,
       );
     }
@@ -172,7 +172,7 @@ class C2MonthPickerState extends State<C2MonthPicker> {
   void _handlePreviousMonth() {
     if (!_isDisplayingFirstMonth) {
       _pageController.previousPage(
-        duration: C2Constants.monthScrollDuration,
+        duration: Settings.monthScrollDuration,
         curve: Curves.ease,
       );
     }
@@ -186,7 +186,7 @@ class C2MonthPickerState extends State<C2MonthPicker> {
     } else {
       _pageController.animateToPage(
         monthPage,
-        duration: C2Constants.monthScrollDuration,
+        duration: Settings.monthScrollDuration,
         curve: Curves.ease,
       );
     }
@@ -303,7 +303,7 @@ class C2MonthPickerState extends State<C2MonthPicker> {
   Widget _buildItems(BuildContext context, int index) {
     final DateTime month =
         DateUtils.addMonthsToMonthDate(widget.config.firstDate, index);
-    return C2DayPicker(
+    return DayPicker(
       key: ValueKey<DateTime>(month),
       selectedDates: (widget.selectedDates..removeWhere((d) => d == null))
           .cast<DateTime>(),
@@ -325,8 +325,7 @@ class C2MonthPickerState extends State<C2MonthPicker> {
             padding: widget.config.centerAlignModePicker != true
                 ? const EdgeInsetsDirectional.only(start: 16, end: 4)
                 : const EdgeInsetsDirectional.only(start: 8, end: 8),
-            height:
-                (widget.config.controlsHeight ?? C2Constants.subHeaderHeight),
+            height: (widget.config.controlsHeight ?? Settings.subHeaderHeight),
             child: Row(
               children: <Widget>[
                 if (widget.config.centerAlignModePicker != true) const Spacer(),
@@ -359,7 +358,7 @@ class C2MonthPickerState extends State<C2MonthPicker> {
               actions: _actionMap,
               focusNode: _dayGridFocus,
               onFocusChange: _handleGridFocusChange,
-              child: C2FocusedDate(
+              child: FocusedDate(
                 date: _dayGridFocus.hasFocus ? _focusedDay : null,
                 child: PageView.builder(
                   key: _pageViewKey,

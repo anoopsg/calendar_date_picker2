@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 ///
 /// This is used by the [_MonthPicker] to let its children [_DayPicker]s know
 /// what the currently focused date (if any) should be.
-class C2FocusedDate extends InheritedWidget {
-  const C2FocusedDate({
+class FocusedDate extends InheritedWidget {
+  const FocusedDate({
     Key? key,
     required Widget child,
     this.date,
@@ -14,13 +14,13 @@ class C2FocusedDate extends InheritedWidget {
   final DateTime? date;
 
   @override
-  bool updateShouldNotify(C2FocusedDate oldWidget) {
+  bool updateShouldNotify(FocusedDate oldWidget) {
     return !DateUtils.isSameDay(date, oldWidget.date);
   }
 
   static DateTime? maybeOf(BuildContext context) {
-    final C2FocusedDate? focusedDate =
-        context.dependOnInheritedWidgetOfExactType<C2FocusedDate>();
+    final FocusedDate? focusedDate =
+        context.dependOnInheritedWidgetOfExactType<FocusedDate>();
     return focusedDate?.date;
   }
 }

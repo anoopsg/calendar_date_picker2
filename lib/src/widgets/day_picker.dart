@@ -1,4 +1,4 @@
-import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/settings/settings.dart';
 import 'package:calendar_date_picker2/src/widgets/focus_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,9 +10,9 @@ import '../../calendar_date_picker2.dart';
 ///
 /// The days are arranged in a rectangular grid with one column for each day of
 /// the week.
-class C2DayPicker extends StatefulWidget {
+class DayPicker extends StatefulWidget {
   /// Creates a day picker.
-  const C2DayPicker({
+  const DayPicker({
     required this.config,
     required this.displayedMonth,
     required this.selectedDates,
@@ -35,10 +35,10 @@ class C2DayPicker extends StatefulWidget {
   final DateTime displayedMonth;
 
   @override
-  C2DayPickerState createState() => C2DayPickerState();
+  DayPickerState createState() => DayPickerState();
 }
 
-class C2DayPickerState extends State<C2DayPicker> {
+class DayPickerState extends State<DayPicker> {
   /// List of [FocusNode]s, one for each day of the month.
   late List<FocusNode> _dayFocusNodes;
 
@@ -58,7 +58,7 @@ class C2DayPickerState extends State<C2DayPicker> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Check to see if the focused date is in this month, if so focus it.
-    final DateTime? focusedDate = C2FocusedDate.maybeOf(context);
+    final DateTime? focusedDate = FocusedDate.maybeOf(context);
     if (focusedDate != null &&
         DateUtils.isSameMonth(widget.displayedMonth, focusedDate)) {
       _dayFocusNodes[focusedDate.day - 1].requestFocus();
@@ -313,7 +313,7 @@ class C2DayPickerState extends State<C2DayPicker> {
           dayWidget = InkResponse(
             focusNode: _dayFocusNodes[day - 1],
             onTap: () => widget.onChanged(dayToBuild),
-            radius: C2Constants.dayPickerRowHeight / 2 + 4,
+            radius: Settings.dayPickerRowHeight / 2 + 4,
             splashColor: selectedDayBackground.withOpacity(0.38),
             child: Semantics(
               // We want the day of month to be spoken first irrespective of the
@@ -337,7 +337,7 @@ class C2DayPickerState extends State<C2DayPicker> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: C2Constants.monthPickerHorizontalPadding,
+        horizontal: Settings.monthPickerHorizontalPadding,
       ),
       child: GridView.custom(
         padding: EdgeInsets.zero,
@@ -378,17 +378,16 @@ class C2DayPickerState extends State<C2DayPicker> {
   }
 }
 
-class C2DayPickerGridDelegate extends SliverGridDelegate {
-  const C2DayPickerGridDelegate();
+class DayPickerGridDelegate extends SliverGridDelegate {
+  const DayPickerGridDelegate();
 
   @override
   SliverGridLayout getLayout(SliverConstraints constraints) {
     const int columnCount = DateTime.daysPerWeek;
     final double tileWidth = constraints.crossAxisExtent / columnCount;
     final double tileHeight = math.min(
-      C2Constants.dayPickerRowHeight,
-      constraints.viewportMainAxisExtent /
-          (C2Constants.maxDayPickerRowCount + 1),
+      Settings.dayPickerRowHeight,
+      constraints.viewportMainAxisExtent / (Settings.maxDayPickerRowCount + 1),
     );
     return SliverGridRegularTileLayout(
       childCrossAxisExtent: tileWidth,
@@ -401,8 +400,7 @@ class C2DayPickerGridDelegate extends SliverGridDelegate {
   }
 
   @override
-  bool shouldRelayout(C2DayPickerGridDelegate oldDelegate) => false;
+  bool shouldRelayout(DayPickerGridDelegate oldDelegate) => false;
 }
 
-const C2DayPickerGridDelegate _dayPickerGridDelegate =
-    C2DayPickerGridDelegate();
+const DayPickerGridDelegate _dayPickerGridDelegate = DayPickerGridDelegate();

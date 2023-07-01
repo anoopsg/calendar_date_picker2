@@ -1,10 +1,10 @@
-import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/settings/settings.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class C2YearPickerGridView extends StatelessWidget {
-  const C2YearPickerGridView({
+class YearPickerGridView extends StatelessWidget {
+  const YearPickerGridView({
     Key? key,
     required this.controller,
     required this.dragStartBehavior,
@@ -26,7 +26,7 @@ class C2YearPickerGridView extends StatelessWidget {
       itemBuilder: itemBuilder,
       itemCount: itemCount,
       padding: const EdgeInsets.symmetric(
-        horizontal: C2Constants.yearPickerPadding,
+        horizontal: Settings.yearPickerPadding,
       ),
     );
   }
@@ -38,15 +38,15 @@ class _YearPickerGridDelegate extends SliverGridDelegate {
   @override
   SliverGridLayout getLayout(SliverConstraints constraints) {
     final double tileWidth = (constraints.crossAxisExtent -
-            (C2Constants.yearPickerColumnCount - 1) *
-                C2Constants.yearPickerRowSpacing) /
-        C2Constants.yearPickerColumnCount;
+            (Settings.yearPickerColumnCount - 1) *
+                Settings.yearPickerRowSpacing) /
+        Settings.yearPickerColumnCount;
     return SliverGridRegularTileLayout(
       childCrossAxisExtent: tileWidth,
-      childMainAxisExtent: C2Constants.yearPickerRowHeight,
-      crossAxisCount: C2Constants.yearPickerColumnCount,
-      crossAxisStride: tileWidth + C2Constants.yearPickerRowSpacing,
-      mainAxisStride: C2Constants.yearPickerRowHeight,
+      childMainAxisExtent: Settings.yearPickerRowHeight,
+      crossAxisCount: Settings.yearPickerColumnCount,
+      crossAxisStride: tileWidth + Settings.yearPickerRowSpacing,
+      mainAxisStride: Settings.yearPickerRowHeight,
       reverseCrossAxis: axisDirectionIsReversed(constraints.crossAxisDirection),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 import '../../calendar_date_picker2.dart';
@@ -67,7 +67,7 @@ class DatePickerModeToggleButtonState extends State<DatePickerModeToggleButton>
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final TextTheme textTheme = Theme.of(context).textTheme;
     final Color controlColor = colorScheme.onSurface.withOpacity(0.60);
-    var datePickerOffsetPadding = C2Constants.monthNavButtonsWidth;
+    var datePickerOffsetPadding = Settings.monthNavButtonsWidth;
     if (widget.config.centerAlignModePicker == true) {
       datePickerOffsetPadding /= 2;
     }
@@ -76,7 +76,7 @@ class DatePickerModeToggleButtonState extends State<DatePickerModeToggleButton>
       padding: widget.config.centerAlignModePicker == true
           ? EdgeInsets.zero
           : const EdgeInsetsDirectional.only(start: 16, end: 4),
-      height: (widget.config.controlsHeight ?? C2Constants.subHeaderHeight),
+      height: (widget.config.controlsHeight ?? Settings.subHeaderHeight),
       child: Row(
         children: <Widget>[
           if (widget.mode == DatePickerMode.day &&
@@ -89,8 +89,8 @@ class DatePickerModeToggleButtonState extends State<DatePickerModeToggleButton>
               excludeSemantics: true,
               button: true,
               child: SizedBox(
-                height: (widget.config.controlsHeight ??
-                    C2Constants.subHeaderHeight),
+                height:
+                    (widget.config.controlsHeight ?? Settings.subHeaderHeight),
                 child: InkWell(
                   onTap: widget.config.disableModePicker == true
                       ? null

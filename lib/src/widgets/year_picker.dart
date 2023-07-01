@@ -1,5 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:calendar_date_picker2/src/constants.dart';
+import 'package:calendar_date_picker2/src/settings/settings.dart';
 import 'package:calendar_date_picker2/src/widgets/year_picker_grid_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +18,9 @@ import 'dart:math' as math;
 ///  * [showDatePicker2], which shows a dialog containing a Material Design
 ///    date picker.
 ///
-class C2YearPicker extends StatefulWidget {
+class YearPicker extends StatefulWidget {
   /// Creates a year picker.
-  const C2YearPicker({
+  const YearPicker({
     required this.config,
     required this.selectedDates,
     required this.onChanged,
@@ -47,10 +47,10 @@ class C2YearPicker extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<C2YearPicker> createState() => _C2YearPickerState();
+  State<YearPicker> createState() => _YearPickerState();
 }
 
-class _C2YearPickerState extends State<C2YearPicker> {
+class _YearPickerState extends State<YearPicker> {
   late ScrollController _scrollController;
 
   // The approximate number of years necessary to fill the available space.
@@ -67,7 +67,7 @@ class _C2YearPickerState extends State<C2YearPicker> {
   }
 
   @override
-  void didUpdateWidget(C2YearPicker oldWidget) {
+  void didUpdateWidget(YearPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.selectedDates != oldWidget.selectedDates) {
       final scrollOffset =
@@ -81,12 +81,12 @@ class _C2YearPickerState extends State<C2YearPicker> {
   double _scrollOffsetForYear(DateTime date) {
     final int initialYearIndex = date.year - widget.config.firstDate.year;
     final int initialYearRow =
-        initialYearIndex ~/ C2Constants.yearPickerColumnCount;
+        initialYearIndex ~/ Settings.yearPickerColumnCount;
     // Move the offset down by 2 rows to approximately center it.
     final int centeredYearRow = initialYearRow - 2;
     return _itemCount < minYears
         ? 0
-        : centeredYearRow * C2Constants.yearPickerRowHeight;
+        : centeredYearRow * Settings.yearPickerRowHeight;
   }
 
   Widget _buildYearItem(BuildContext context, int index) {
@@ -194,7 +194,7 @@ class _C2YearPickerState extends State<C2YearPicker> {
       children: <Widget>[
         const Divider(),
         Expanded(
-          child: C2YearPickerGridView(
+          child: YearPickerGridView(
             controller: _scrollController,
             dragStartBehavior: widget.dragStartBehavior,
             itemBuilder: _buildYearItem,
