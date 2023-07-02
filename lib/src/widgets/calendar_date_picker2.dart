@@ -67,7 +67,7 @@ class CalendarDatePicker2 extends StatefulWidget {
 class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
   bool _announcedInitialDate = false;
   late List<DateTime?> _selectedDates;
-  late C2DatePickerMode _mode;
+  late CalendarDatePicker2Mode _mode;
   late DateTime _currentDisplayedMonthDate;
   final GlobalKey _monthPickerKey = GlobalKey();
   final GlobalKey _yearPickerKey = GlobalKey();
@@ -139,7 +139,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
     }
   }
 
-  void _handleModeChanged(C2DatePickerMode mode) {
+  void _handleModeChanged(CalendarDatePicker2Mode mode) {
     _vibrate();
     setState(() {
       _mode = mode;
@@ -147,7 +147,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
         for (final date in _selectedDates) {
           if (date != null) {
             SemanticsService.announce(
-              _mode == C2DatePickerMode.day
+              _mode == CalendarDatePicker2Mode.day
                   ? _localizations.formatMonthYear(date)
                   : _localizations.formatYear(date),
               _textDirection,
@@ -203,7 +203,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
     }
 
     setState(() {
-      _mode = C2DatePickerMode.day;
+      _mode = CalendarDatePicker2Mode.day;
       _handleMonthChanged(value, fromYearPicker: true);
     });
   }
@@ -258,7 +258,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
 
   Widget _buildPicker() {
     switch (_mode) {
-      case C2DatePickerMode.day:
+      case CalendarDatePicker2Mode.day:
         return CalendarView(
           config: widget.config,
           key: _monthPickerKey,
@@ -267,7 +267,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
           onChanged: _handleDayChanged,
           onDisplayedMonthChanged: _handleMonthChanged,
         );
-      case C2DatePickerMode.year:
+      case CalendarDatePicker2Mode.year:
         return Padding(
           padding: EdgeInsets.only(
               top: widget.config.controlsHeight ?? Settings.subHeaderHeight),
@@ -279,7 +279,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
             onChanged: _handleYearChanged,
           ),
         );
-      case C2DatePickerMode.month:
+      case CalendarDatePicker2Mode.month:
         return Padding(
           padding: EdgeInsets.only(
             top: widget.config.controlsHeight ?? Settings.subHeaderHeight,
@@ -291,7 +291,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
             selectedDates: _selectedDates,
             onChanged: (date) {
               _handleMonthChanged(date);
-              _handleModeChanged(C2DatePickerMode.day);
+              _handleModeChanged(CalendarDatePicker2Mode.day);
             },
           ),
         );
@@ -324,16 +324,16 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
           monthPickerLabel:
               getMonthLabelFromLocale(_currentDisplayedMonthDate, context),
           onMonthPickerTap: () {
-            if (_mode == C2DatePickerMode.day) {
-              return _handleModeChanged(C2DatePickerMode.month);
+            if (_mode == CalendarDatePicker2Mode.day) {
+              return _handleModeChanged(CalendarDatePicker2Mode.month);
             }
-            return _handleModeChanged(C2DatePickerMode.day);
+            return _handleModeChanged(CalendarDatePicker2Mode.day);
           },
           onYearPickerTap: () {
-            if (_mode == C2DatePickerMode.day) {
-              return _handleModeChanged(C2DatePickerMode.year);
+            if (_mode == CalendarDatePicker2Mode.day) {
+              return _handleModeChanged(CalendarDatePicker2Mode.year);
             }
-            return _handleModeChanged(C2DatePickerMode.day);
+            return _handleModeChanged(CalendarDatePicker2Mode.day);
           },
         ),
       ],

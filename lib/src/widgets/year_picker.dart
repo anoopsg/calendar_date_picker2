@@ -138,7 +138,7 @@ class _YearPickerState extends State<YearPicker> {
       );
     }
 
-    Widget yearItem = widget.config.yearBuilder?.call(
+    Widget yearItem = widget.config.yearPickerConfig.itemBuilder?.call(
           year: year,
           textStyle: itemStyle,
           decoration: decoration,

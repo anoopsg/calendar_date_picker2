@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 enum CalendarDatePicker2Type { single, multi, range }
 
-enum C2DatePickerMode {
+enum CalendarDatePicker2Mode {
   year,
   month,
   day,
@@ -22,7 +22,7 @@ typedef CalendarDayBuilder = Widget? Function({
   bool? isToday,
 });
 
-typedef CalendarYearBuilder = Widget? Function({
+typedef CalendarYearItemBuilder = Widget? Function({
   required int year,
   TextStyle? textStyle,
   BoxDecoration? decoration,
@@ -31,7 +31,7 @@ typedef CalendarYearBuilder = Widget? Function({
   bool? isCurrentYear,
 });
 
-typedef CalendarMonthPickerBuilder = Widget? Function({
+typedef CalendarMonthItemBuilder = Widget? Function({
   required int month,
   required String monthLabel,
   TextStyle? textStyle,
@@ -50,7 +50,7 @@ class CalendarDatePicker2Config {
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    C2DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
     MonthPickerConfig? monthPickerConfig,
     YearPickerConfig? yearPickerConfig,
     this.weekdayLabels,
@@ -73,8 +73,6 @@ class CalendarDatePicker2Config {
     this.selectableDayPredicate,
     this.dayTextStylePredicate,
     this.dayBuilder,
-    this.yearBuilder,
-    this.monthPickerBuilder,
     this.disableModePicker,
     this.centerAlignModePicker,
     this.customModePickerIcon,
@@ -86,7 +84,7 @@ class CalendarDatePicker2Config {
         lastDate =
             DateUtils.dateOnly(lastDate ?? DateTime(DateTime.now().year + 50)),
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
-        calendarViewMode = calendarViewMode ?? C2DatePickerMode.day,
+        calendarViewMode = calendarViewMode ?? CalendarDatePicker2Mode.day,
         monthPickerConfig = monthPickerConfig ?? const MonthPickerConfig(),
         yearPickerConfig = yearPickerConfig ?? const YearPickerConfig(),
         disableMonthPagination = disableMonthPagination ?? false;
@@ -104,7 +102,7 @@ class CalendarDatePicker2Config {
   final DateTime currentDate;
 
   /// The initially displayed view of the calendar picker.
-  final C2DatePickerMode calendarViewMode;
+  final CalendarDatePicker2Mode calendarViewMode;
 
   /// Custom weekday labels for the current locale, MUST starts from Sunday
   /// Examples:
@@ -175,11 +173,6 @@ class CalendarDatePicker2Config {
   /// Function to provide full control over day widget UI
   final CalendarDayBuilder? dayBuilder;
 
-  /// Function to provide full control over year widget UI
-  final CalendarYearBuilder? yearBuilder;
-
-  final CalendarMonthPickerBuilder? monthPickerBuilder;
-
   /// Flag to disable mode picker and hide the mode toggle button icon
   final bool? disableModePicker;
 
@@ -203,7 +196,7 @@ class CalendarDatePicker2Config {
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    C2DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -225,8 +218,6 @@ class CalendarDatePicker2Config {
     SelectableDayPredicate? selectableDayPredicate,
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
-    CalendarYearBuilder? yearBuilder,
-    CalendarMonthPickerBuilder? monthPickerBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
@@ -269,8 +260,6 @@ class CalendarDatePicker2Config {
       dayTextStylePredicate:
           dayTextStylePredicate ?? this.dayTextStylePredicate,
       dayBuilder: dayBuilder ?? this.dayBuilder,
-      yearBuilder: yearBuilder ?? this.yearBuilder,
-      monthPickerBuilder: monthPickerBuilder ?? this.monthPickerBuilder,
       disableModePicker: disableModePicker ?? this.disableModePicker,
       centerAlignModePicker:
           centerAlignModePicker ?? this.centerAlignModePicker,
@@ -292,7 +281,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    C2DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -314,8 +303,6 @@ class CalendarDatePicker2WithActionButtonsConfig
     SelectableDayPredicate? selectableDayPredicate,
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
-    CalendarYearBuilder? yearBuilder,
-    CalendarMonthPickerBuilder? monthPickerBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
@@ -359,8 +346,6 @@ class CalendarDatePicker2WithActionButtonsConfig
           selectableDayPredicate: selectableDayPredicate,
           dayTextStylePredicate: dayTextStylePredicate,
           dayBuilder: dayBuilder,
-          yearBuilder: yearBuilder,
-          monthPickerBuilder: monthPickerBuilder,
           disableModePicker: disableModePicker,
           centerAlignModePicker: centerAlignModePicker,
           customModePickerIcon: customModePickerIcon,
@@ -403,7 +388,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    C2DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -425,8 +410,6 @@ class CalendarDatePicker2WithActionButtonsConfig
     SelectableDayPredicate? selectableDayPredicate,
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
-    CalendarYearBuilder? yearBuilder,
-    CalendarMonthPickerBuilder? monthPickerBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
@@ -478,8 +461,6 @@ class CalendarDatePicker2WithActionButtonsConfig
       dayTextStylePredicate:
           dayTextStylePredicate ?? this.dayTextStylePredicate,
       dayBuilder: dayBuilder ?? this.dayBuilder,
-      yearBuilder: yearBuilder ?? this.yearBuilder,
-      monthPickerBuilder: monthPickerBuilder,
       disableModePicker: disableModePicker ?? this.disableModePicker,
       centerAlignModePicker:
           centerAlignModePicker ?? this.centerAlignModePicker,

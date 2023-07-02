@@ -78,7 +78,7 @@ class _MonthPickerState extends State<MonthPicker> {
       );
     }
 
-    Widget monthItem = widget.config.monthPickerBuilder?.call(
+    Widget monthItem = widget.config.monthPickerConfig.itemBuilder?.call(
           month: indexToMonth,
           monthLabel: monthLabel,
           textStyle: itemStyle,
