@@ -80,6 +80,7 @@ class _MonthPickerState extends State<MonthPicker> {
 
     Widget monthItem = widget.config.monthPickerBuilder?.call(
           month: indexToMonth,
+          monthLabel: monthLabel,
           textStyle: itemStyle,
           decoration: decoration,
           isSelected: isSelected,
@@ -95,7 +96,7 @@ class _MonthPickerState extends State<MonthPicker> {
                 selected: isSelected,
                 button: true,
                 child: Text(
-                  monthLabel.toString(),
+                  monthLabel,
                   style: itemStyle,
                 ),
               ),

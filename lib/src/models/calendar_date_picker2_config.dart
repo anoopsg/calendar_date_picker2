@@ -33,6 +33,7 @@ typedef CalendarYearBuilder = Widget? Function({
 
 typedef CalendarMonthPickerBuilder = Widget? Function({
   required int month,
+  required String monthLabel,
   TextStyle? textStyle,
   BoxDecoration? decoration,
   bool? isSelected,
