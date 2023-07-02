@@ -200,46 +200,48 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         return dayWidget;
       },
-      yearBuilder: ({
-        required year,
-        decoration,
-        isCurrentYear,
-        isDisabled,
-        isSelected,
-        textStyle,
-      }) {
-        return Center(
-          child: Container(
-            decoration: decoration,
-            height: 36,
-            width: 72,
-            child: Center(
-              child: Semantics(
-                selected: isSelected,
-                button: true,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      year.toString(),
-                      style: textStyle,
-                    ),
-                    if (isCurrentYear == true)
-                      Container(
-                        padding: const EdgeInsets.all(5),
-                        margin: const EdgeInsets.only(left: 5),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.redAccent,
-                        ),
+      yearPickerConfig: YearPickerConfig(
+        itemBuilder: ({
+          required year,
+          decoration,
+          isCurrentYear,
+          isDisabled,
+          isSelected,
+          textStyle,
+        }) {
+          return Center(
+            child: Container(
+              decoration: decoration,
+              height: 36,
+              width: 72,
+              child: Center(
+                child: Semantics(
+                  selected: isSelected,
+                  button: true,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        year.toString(),
+                        style: textStyle,
                       ),
-                  ],
+                      if (isCurrentYear == true)
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          margin: const EdgeInsets.only(left: 5),
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
     return Padding(
       padding: const EdgeInsets.all(15),
