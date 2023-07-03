@@ -1,6 +1,13 @@
+import 'package:calendar_date_picker2/src/models/picker_config.dart';
 import 'package:flutter/material.dart';
 
 enum CalendarDatePicker2Type { single, multi, range }
+
+enum CalendarDatePicker2Mode {
+  year,
+  month,
+  day,
+}
 
 typedef CalendarDayTextStylePredicate = TextStyle? Function({
   required DateTime date,
@@ -15,13 +22,22 @@ typedef CalendarDayBuilder = Widget? Function({
   bool? isToday,
 });
 
-typedef CalendarYearBuilder = Widget? Function({
+typedef CalendarYearItemBuilder = Widget? Function({
   required int year,
   TextStyle? textStyle,
   BoxDecoration? decoration,
   bool? isSelected,
   bool? isDisabled,
   bool? isCurrentYear,
+});
+
+typedef CalendarMonthItemBuilder = Widget? Function({
+  required int month,
+  required String monthLabel,
+  TextStyle? textStyle,
+  BoxDecoration? decoration,
+  bool? isSelected,
+  bool? isDisabled,
 });
 
 typedef CalendarModePickerTextHandler = String? Function({
@@ -34,7 +50,9 @@ class CalendarDatePicker2Config {
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
     this.weekdayLabels,
     this.weekdayLabelTextStyle,
     this.firstDayOfWeek,
@@ -55,18 +73,21 @@ class CalendarDatePicker2Config {
     this.selectableDayPredicate,
     this.dayTextStylePredicate,
     this.dayBuilder,
-    this.yearBuilder,
     this.disableModePicker,
     this.centerAlignModePicker,
     this.customModePickerIcon,
     this.modePickerTextHandler,
     this.selectedRangeDayTextStyle,
+    bool? disableMonthPagination,
   })  : calendarType = calendarType ?? CalendarDatePicker2Type.single,
         firstDate = DateUtils.dateOnly(firstDate ?? DateTime(1970)),
         lastDate =
             DateUtils.dateOnly(lastDate ?? DateTime(DateTime.now().year + 50)),
         currentDate = currentDate ?? DateUtils.dateOnly(DateTime.now()),
-        calendarViewMode = calendarViewMode ?? DatePickerMode.day;
+        calendarViewMode = calendarViewMode ?? CalendarDatePicker2Mode.day,
+        monthPickerConfig = monthPickerConfig ?? const MonthPickerConfig(),
+        yearPickerConfig = yearPickerConfig ?? const YearPickerConfig(),
+        disableMonthPagination = disableMonthPagination ?? false;
 
   /// The enabled date picker mode
   final CalendarDatePicker2Type calendarType;
@@ -81,7 +102,7 @@ class CalendarDatePicker2Config {
   final DateTime currentDate;
 
   /// The initially displayed view of the calendar picker.
-  final DatePickerMode calendarViewMode;
+  final CalendarDatePicker2Mode calendarViewMode;
 
   /// Custom weekday labels for the current locale, MUST starts from Sunday
   /// Examples:
@@ -152,9 +173,6 @@ class CalendarDatePicker2Config {
   /// Function to provide full control over day widget UI
   final CalendarDayBuilder? dayBuilder;
 
-  /// Function to provide full control over year widget UI
-  final CalendarYearBuilder? yearBuilder;
-
   /// Flag to disable mode picker and hide the mode toggle button icon
   final bool? disableModePicker;
 
@@ -167,12 +185,18 @@ class CalendarDatePicker2Config {
   /// Function to control mode picker displayed text
   final CalendarModePickerTextHandler? modePickerTextHandler;
 
+  final MonthPickerConfig monthPickerConfig;
+
+  final YearPickerConfig yearPickerConfig;
+
+  final bool disableMonthPagination;
+
   CalendarDatePicker2Config copyWith({
     CalendarDatePicker2Type? calendarType,
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -194,11 +218,13 @@ class CalendarDatePicker2Config {
     SelectableDayPredicate? selectableDayPredicate,
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
-    CalendarYearBuilder? yearBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
     CalendarModePickerTextHandler? modePickerTextHandler,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
+    bool? disableMonthPagination,
   }) {
     return CalendarDatePicker2Config(
       calendarType: calendarType ?? this.calendarType,
@@ -234,13 +260,16 @@ class CalendarDatePicker2Config {
       dayTextStylePredicate:
           dayTextStylePredicate ?? this.dayTextStylePredicate,
       dayBuilder: dayBuilder ?? this.dayBuilder,
-      yearBuilder: yearBuilder ?? this.yearBuilder,
       disableModePicker: disableModePicker ?? this.disableModePicker,
       centerAlignModePicker:
           centerAlignModePicker ?? this.centerAlignModePicker,
       customModePickerIcon: customModePickerIcon ?? this.customModePickerIcon,
       modePickerTextHandler:
           modePickerTextHandler ?? this.modePickerTextHandler,
+      monthPickerConfig: monthPickerConfig ?? this.monthPickerConfig,
+      yearPickerConfig: yearPickerConfig ?? this.yearPickerConfig,
+      disableMonthPagination:
+          disableMonthPagination ?? this.disableMonthPagination,
     );
   }
 }
@@ -252,7 +281,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -274,11 +303,12 @@ class CalendarDatePicker2WithActionButtonsConfig
     SelectableDayPredicate? selectableDayPredicate,
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
-    CalendarYearBuilder? yearBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
     CalendarModePickerTextHandler? modePickerTextHandler,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
     this.gapBetweenCalendarAndButtons,
     this.cancelButtonTextStyle,
     this.cancelButton,
@@ -288,6 +318,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     this.closeDialogOnCancelTapped,
     this.closeDialogOnOkTapped,
     this.buttonPadding,
+    bool? disableMonthPagination,
   }) : super(
           calendarType: calendarType,
           firstDate: firstDate,
@@ -315,11 +346,13 @@ class CalendarDatePicker2WithActionButtonsConfig
           selectableDayPredicate: selectableDayPredicate,
           dayTextStylePredicate: dayTextStylePredicate,
           dayBuilder: dayBuilder,
-          yearBuilder: yearBuilder,
           disableModePicker: disableModePicker,
           centerAlignModePicker: centerAlignModePicker,
           customModePickerIcon: customModePickerIcon,
           modePickerTextHandler: modePickerTextHandler,
+          monthPickerConfig: monthPickerConfig,
+          yearPickerConfig: yearPickerConfig,
+          disableMonthPagination: disableMonthPagination,
         );
 
   /// The gap between calendar and action buttons
@@ -355,7 +388,7 @@ class CalendarDatePicker2WithActionButtonsConfig
     DateTime? firstDate,
     DateTime? lastDate,
     DateTime? currentDate,
-    DatePickerMode? calendarViewMode,
+    CalendarDatePicker2Mode? calendarViewMode,
     List<String>? weekdayLabels,
     TextStyle? weekdayLabelTextStyle,
     int? firstDayOfWeek,
@@ -377,7 +410,6 @@ class CalendarDatePicker2WithActionButtonsConfig
     SelectableDayPredicate? selectableDayPredicate,
     CalendarDayTextStylePredicate? dayTextStylePredicate,
     CalendarDayBuilder? dayBuilder,
-    CalendarYearBuilder? yearBuilder,
     bool? disableModePicker,
     bool? centerAlignModePicker,
     Widget? customModePickerIcon,
@@ -391,6 +423,9 @@ class CalendarDatePicker2WithActionButtonsConfig
     bool? closeDialogOnCancelTapped,
     bool? closeDialogOnOkTapped,
     EdgeInsets? buttonPadding,
+    MonthPickerConfig? monthPickerConfig,
+    YearPickerConfig? yearPickerConfig,
+    bool? disableMonthPagination,
   }) {
     return CalendarDatePicker2WithActionButtonsConfig(
       calendarType: calendarType ?? this.calendarType,
@@ -426,7 +461,6 @@ class CalendarDatePicker2WithActionButtonsConfig
       dayTextStylePredicate:
           dayTextStylePredicate ?? this.dayTextStylePredicate,
       dayBuilder: dayBuilder ?? this.dayBuilder,
-      yearBuilder: yearBuilder ?? this.yearBuilder,
       disableModePicker: disableModePicker ?? this.disableModePicker,
       centerAlignModePicker:
           centerAlignModePicker ?? this.centerAlignModePicker,
@@ -446,6 +480,10 @@ class CalendarDatePicker2WithActionButtonsConfig
       closeDialogOnOkTapped:
           closeDialogOnOkTapped ?? this.closeDialogOnOkTapped,
       buttonPadding: buttonPadding ?? this.buttonPadding,
+      monthPickerConfig: monthPickerConfig ?? this.monthPickerConfig,
+      yearPickerConfig: yearPickerConfig ?? this.yearPickerConfig,
+      disableMonthPagination:
+          disableMonthPagination ?? this.disableMonthPagination,
     );
   }
 }
