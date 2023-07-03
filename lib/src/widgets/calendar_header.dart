@@ -109,23 +109,29 @@ class DatePickerModeToggleButtonState extends State<CalendarHeader> {
           ),
           if (shouldShowMonthPicker)
             Flexible(
-              child: InkWell(
-                onTap: widget.config.disableModePicker == true
-                    ? null
-                    : widget.onMonthPickerTap,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal:
-                          widget.config.centerAlignModePicker == true ? 0 : 8),
-                  child: PickerToggleButton(
-                    isExpanded: widget.mode == CalendarDatePicker2Mode.month,
-                    title: widget.monthPickerLabel,
-                    config: widget.config,
+              child: SizedBox(
+                height:
+                    (widget.config.controlsHeight ?? Settings.subHeaderHeight),
+                child: InkWell(
+                  onTap: widget.config.disableModePicker == true
+                      ? null
+                      : widget.onMonthPickerTap,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: widget.config.centerAlignModePicker == true
+                            ? 0
+                            : 8),
+                    child: PickerToggleButton(
+                      isExpanded: widget.mode == CalendarDatePicker2Mode.month,
+                      title: widget.monthPickerLabel,
+                      config: widget.config,
+                    ),
                   ),
                 ),
               ),
             ),
-          if (widget.mode == CalendarDatePicker2Mode.day)
+          if (widget.mode == CalendarDatePicker2Mode.day &&
+              !widget.config.disableMonthPagination)
             // Give space for the prev/next month buttons that are underneath this row
             SizedBox(width: datePickerOffsetPadding),
         ],
