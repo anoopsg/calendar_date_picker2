@@ -319,7 +319,7 @@ class _CalendarViewState extends State<_CalendarView> {
                 ? const EdgeInsetsDirectional.only(start: 16, end: 4)
                 : const EdgeInsetsDirectional.only(start: 8, end: 8),
             height: (widget.config.controlsHeight ?? Settings.subHeaderHeight),
-            child: widget.config.disableMonthPagination
+            child: widget.config.headerConfig.disableMonthPagination
                 ? const SizedBox.shrink()
                 : Row(
                     children: <Widget>[

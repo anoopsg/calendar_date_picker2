@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:flutter/material.dart';
 
 const List<String> _fallbackMonthLabels = [
   'Jan',
@@ -14,6 +15,18 @@ const List<String> _fallbackMonthLabels = [
   'Nov',
   'Dec',
 ];
+
+class HeaderConfig {
+  const HeaderConfig({
+    this.disableMonthPagination = false,
+    this.contentAlignX = MainAxisAlignment.start,
+    this.enableMonthPicker = false,
+  });
+
+  final bool disableMonthPagination;
+  final MainAxisAlignment contentAlignX;
+  final bool enableMonthPicker;
+}
 
 class MonthPickerConfig {
   const MonthPickerConfig({

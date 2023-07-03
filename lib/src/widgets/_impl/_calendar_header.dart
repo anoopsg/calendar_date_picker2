@@ -42,10 +42,10 @@ class _CalendarHeader extends StatefulWidget {
 
 class DatePickerModeToggleButtonState extends State<_CalendarHeader> {
   bool get shouldShowMonthPicker {
-    if (widget.config.centerAlignModePicker == true) {
-      return false;
+    if (widget.config.headerConfig.enableMonthPicker == true) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   String get resolveYearLabel {
@@ -53,6 +53,13 @@ class DatePickerModeToggleButtonState extends State<_CalendarHeader> {
       return widget.yearPickerLabelShort;
     }
     return widget.yearPickerLabelFull;
+  }
+
+  MainAxisAlignment get _resolvedHeaderAlign {
+    if (widget.config.centerAlignModePicker == true) {
+      MainAxisAlignment.center;
+    }
+    return widget.config.headerConfig.contentAlignX;
   }
 
   @override
@@ -68,9 +75,7 @@ class DatePickerModeToggleButtonState extends State<_CalendarHeader> {
           : const EdgeInsetsDirectional.only(start: 16, end: 4),
       height: (widget.config.controlsHeight ?? Settings.subHeaderHeight),
       child: Row(
-        mainAxisAlignment: widget.config.centerAlignModePicker == true
-            ? MainAxisAlignment.center
-            : MainAxisAlignment.start,
+        mainAxisAlignment: _resolvedHeaderAlign,
         children: <Widget>[
           if (widget.mode == CalendarDatePicker2Mode.day &&
               widget.config.centerAlignModePicker == true)
@@ -127,7 +132,7 @@ class DatePickerModeToggleButtonState extends State<_CalendarHeader> {
               ),
             ),
           if (widget.mode == CalendarDatePicker2Mode.day &&
-              !widget.config.disableMonthPagination)
+              !widget.config.headerConfig.disableMonthPagination)
             // Give space for the prev/next month buttons that are underneath this row
             SizedBox(width: datePickerOffsetPadding),
         ],
