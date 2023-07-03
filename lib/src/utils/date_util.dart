@@ -14,10 +14,10 @@ int getMonthFirstDayOffset(int year, int month, int firstDayOfWeekIndex) {
 }
 
 //TODO: replace with solid implementation
-String getMonthLabelFromLocale(DateTime date, BuildContext context) {
-  final labels =
-      MaterialLocalizations.of(context).formatMonthYear(date).split(' ');
-  return (labels.length == 2 && labels.first.length >= 3)
-      ? labels.first.substring(0, 3)
-      : 'Err';
-}
+// String getMonthLabelFromLocale(DateTime date, BuildContext context) {
+//   final labels =
+//       MaterialLocalizations.of(context).formatMonthYear(date).split(' ');
+//   return (labels.length == 2 && labels.first.length >= 3)
+//       ? labels.first.substring(0, 3)
+//       : 'Err';
+// }

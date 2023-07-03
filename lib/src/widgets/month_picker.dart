@@ -43,10 +43,8 @@ class _MonthPickerState extends State<MonthPicker> {
     final int indexToMonth = index + 1;
     final DateTime displayedDate = widget.initialMonth;
 
-    final String monthLabel = getMonthLabelFromLocale(
-      DateTime(displayedDate.year, indexToMonth),
-      context,
-    );
+    final String monthLabel =
+        widget.config.monthPickerConfig.getLabelByMonth(indexToMonth);
 
     final bool isSelected = indexToMonth == displayedDate.month;
     final bool isDisabled = displayedDate == widget.config.firstDate &&

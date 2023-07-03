@@ -321,8 +321,9 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
           yearPickerLabelShort: _localizations.formatYear(
             _currentDisplayedMonthDate,
           ),
-          monthPickerLabel:
-              getMonthLabelFromLocale(_currentDisplayedMonthDate, context),
+          monthPickerLabel: widget.config.monthPickerConfig.getLabelByMonth(
+            _currentDisplayedMonthDate.month,
+          ),
           onMonthPickerTap: () {
             if (_mode == CalendarDatePicker2Mode.day) {
               return _handleModeChanged(CalendarDatePicker2Mode.month);
