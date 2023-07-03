@@ -1,8 +1,7 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:flutter/material.dart';
+part of '../calendar_date_picker2.dart';
 
-class PickerToggleButton extends StatefulWidget {
-  const PickerToggleButton({
+class _PickerToggleButton extends StatefulWidget {
+  const _PickerToggleButton({
     Key? key,
     required this.isExpanded,
     required this.title,
@@ -14,10 +13,10 @@ class PickerToggleButton extends StatefulWidget {
   final CalendarDatePicker2Config config;
 
   @override
-  State<PickerToggleButton> createState() => _PickerButtonState();
+  State<_PickerToggleButton> createState() => _PickerButtonState();
 }
 
-class _PickerButtonState extends State<PickerToggleButton>
+class _PickerButtonState extends State<_PickerToggleButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -33,7 +32,7 @@ class _PickerButtonState extends State<PickerToggleButton>
   }
 
   @override
-  void didUpdateWidget(PickerToggleButton oldWidget) {
+  void didUpdateWidget(_PickerToggleButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isExpanded == widget.isExpanded) {
       return;

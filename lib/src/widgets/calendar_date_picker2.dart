@@ -4,14 +4,21 @@
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:calendar_date_picker2/src/settings/settings.dart';
-import 'package:calendar_date_picker2/src/widgets/year_picker.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' hide YearPicker;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'dart:math' as math;
 
-import 'calendar_header.dart';
-import 'calendar_view.dart';
-import 'month_picker.dart';
+part '_impl/_calendar_header.dart';
+part '_impl/_picker_toggle_button.dart';
+part '_impl/_calendar_view.dart';
+part '_impl/_day_picker.dart';
+part '_impl/_focus_date.dart';
+part '_impl/_month_picker.dart';
+part '_impl/_month_picker_grid_view.dart';
+part '_impl/_year_picker_grid_view.dart';
+part '_impl/year_picker.dart';
 
 class CalendarDatePicker2 extends StatefulWidget {
   CalendarDatePicker2({
@@ -259,7 +266,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
   Widget _buildPicker() {
     switch (_mode) {
       case CalendarDatePicker2Mode.day:
-        return CalendarView(
+        return _CalendarView(
           config: widget.config,
           key: _monthPickerKey,
           initialMonth: _currentDisplayedMonthDate,
@@ -284,7 +291,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
           padding: EdgeInsets.only(
             top: widget.config.controlsHeight ?? Settings.subHeaderHeight,
           ),
-          child: MonthPicker(
+          child: _MonthPicker(
             config: widget.config,
             key: _yearPickerKey,
             initialMonth: _currentDisplayedMonthDate,
@@ -312,7 +319,7 @@ class _CalendarDatePicker2State extends State<CalendarDatePicker2> {
           child: _buildPicker(),
         ),
         // Put the mode toggle button on top so that it won't be covered up by the _MonthPicker
-        CalendarHeader(
+        _CalendarHeader(
           config: widget.config,
           mode: _mode,
           yearPickerLabelFull: widget.config.modePickerTextHandler

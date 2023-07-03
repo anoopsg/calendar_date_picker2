@@ -1,8 +1,4 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:calendar_date_picker2/src/widgets/year_picker_grid_view.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'dart:math' as math;
+part of '../calendar_date_picker2.dart';
 
 /// A scrollable grid of years to allow picking a year.
 ///
@@ -195,7 +191,7 @@ class _YearPickerState extends State<YearPicker> {
       children: <Widget>[
         const Divider(),
         Expanded(
-          child: YearPickerGridView(
+          child: _YearPickerGridView(
             config: widget.config,
             controller: _scrollController,
             dragStartBehavior: widget.dragStartBehavior,

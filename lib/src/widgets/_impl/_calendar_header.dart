@@ -1,16 +1,12 @@
-import 'package:calendar_date_picker2/src/settings/settings.dart';
-import 'package:calendar_date_picker2/src/widgets/picker_toggle_button.dart';
-import 'package:flutter/material.dart';
-
-import '../../calendar_date_picker2.dart';
+part of '../calendar_date_picker2.dart';
 
 /// Custom header to toggle the [CalendarDatePicker2Mode] for a date picker.
 ///
 /// This appears above the calendar grid and allows the user to toggle the
 /// [CalendarDatePicker2Mode] to display either the calendar view or the year list
 /// or month view.
-class CalendarHeader extends StatefulWidget {
-  const CalendarHeader({
+class _CalendarHeader extends StatefulWidget {
+  const _CalendarHeader({
     Key? key,
     required this.mode,
     required this.config,
@@ -44,7 +40,7 @@ class CalendarHeader extends StatefulWidget {
       DatePickerModeToggleButtonState();
 }
 
-class DatePickerModeToggleButtonState extends State<CalendarHeader> {
+class DatePickerModeToggleButtonState extends State<_CalendarHeader> {
   bool get shouldShowMonthPicker {
     if (widget.config.centerAlignModePicker == true) {
       return false;
@@ -97,7 +93,7 @@ class DatePickerModeToggleButtonState extends State<CalendarHeader> {
                         horizontal: widget.config.centerAlignModePicker == true
                             ? 0
                             : 8),
-                    child: PickerToggleButton(
+                    child: _PickerToggleButton(
                       isExpanded: widget.mode == CalendarDatePicker2Mode.year,
                       title: resolveYearLabel,
                       config: widget.config,
@@ -121,7 +117,7 @@ class DatePickerModeToggleButtonState extends State<CalendarHeader> {
                         horizontal: widget.config.centerAlignModePicker == true
                             ? 0
                             : 8),
-                    child: PickerToggleButton(
+                    child: _PickerToggleButton(
                       isExpanded: widget.mode == CalendarDatePicker2Mode.month,
                       title: widget.monthPickerLabel,
                       config: widget.config,

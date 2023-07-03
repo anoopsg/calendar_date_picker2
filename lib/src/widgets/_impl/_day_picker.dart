@@ -1,18 +1,12 @@
-import 'package:calendar_date_picker2/src/settings/settings.dart';
-import 'package:calendar_date_picker2/src/widgets/focus_date.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'dart:math' as math;
-
-import '../../calendar_date_picker2.dart';
+part of '../calendar_date_picker2.dart';
 
 /// Displays the days of a given month and allows choosing a day.
 ///
 /// The days are arranged in a rectangular grid with one column for each day of
 /// the week.
-class DayPicker extends StatefulWidget {
+class _DayPicker extends StatefulWidget {
   /// Creates a day picker.
-  const DayPicker({
+  const _DayPicker({
     required this.config,
     required this.displayedMonth,
     required this.selectedDates,
@@ -38,7 +32,7 @@ class DayPicker extends StatefulWidget {
   DayPickerState createState() => DayPickerState();
 }
 
-class DayPickerState extends State<DayPicker> {
+class DayPickerState extends State<_DayPicker> {
   /// List of [FocusNode]s, one for each day of the month.
   late List<FocusNode> _dayFocusNodes;
 
@@ -58,7 +52,7 @@ class DayPickerState extends State<DayPicker> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Check to see if the focused date is in this month, if so focus it.
-    final DateTime? focusedDate = FocusedDate.maybeOf(context);
+    final DateTime? focusedDate = _FocusedDate.maybeOf(context);
     if (focusedDate != null &&
         DateUtils.isSameMonth(widget.displayedMonth, focusedDate)) {
       _dayFocusNodes[focusedDate.day - 1].requestFocus();

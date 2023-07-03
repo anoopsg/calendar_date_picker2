@@ -1,17 +1,10 @@
-import 'package:calendar_date_picker2/src/settings/settings.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-
-import '../../calendar_date_picker2.dart';
-import 'day_picker.dart';
-import 'focus_date.dart';
+part of '../calendar_date_picker2.dart';
 
 T? _ambiguate<T>(T? value) => value;
 
-class CalendarView extends StatefulWidget {
+class _CalendarView extends StatefulWidget {
   /// Creates a month picker.
-  const CalendarView({
+  const _CalendarView({
     required this.config,
     required this.initialMonth,
     required this.selectedDates,
@@ -38,10 +31,10 @@ class CalendarView extends StatefulWidget {
   final ValueChanged<DateTime> onDisplayedMonthChanged;
 
   @override
-  State<CalendarView> createState() => _CalendarViewState();
+  State<_CalendarView> createState() => _CalendarViewState();
 }
 
-class _CalendarViewState extends State<CalendarView> {
+class _CalendarViewState extends State<_CalendarView> {
   final GlobalKey _pageViewKey = GlobalKey();
   late DateTime _currentMonth;
   late PageController _pageController;
@@ -88,7 +81,7 @@ class _CalendarViewState extends State<CalendarView> {
   }
 
   @override
-  void didUpdateWidget(CalendarView oldWidget) {
+  void didUpdateWidget(_CalendarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.initialMonth != oldWidget.initialMonth &&
         widget.initialMonth != _currentMonth) {
@@ -303,7 +296,7 @@ class _CalendarViewState extends State<CalendarView> {
   Widget _buildItems(BuildContext context, int index) {
     final DateTime month =
         DateUtils.addMonthsToMonthDate(widget.config.firstDate, index);
-    return DayPicker(
+    return _DayPicker(
       key: ValueKey<DateTime>(month),
       selectedDates: (widget.selectedDates..removeWhere((d) => d == null))
           .cast<DateTime>(),
@@ -364,7 +357,7 @@ class _CalendarViewState extends State<CalendarView> {
               actions: _actionMap,
               focusNode: _dayGridFocus,
               onFocusChange: _handleGridFocusChange,
-              child: FocusedDate(
+              child: _FocusedDate(
                 date: _dayGridFocus.hasFocus ? _focusedDay : null,
                 child: PageView.builder(
                   key: _pageViewKey,

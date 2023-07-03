@@ -1,19 +1,16 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+part of '../calendar_date_picker2.dart';
 
-class YearPickerGridView extends StatelessWidget {
-  const YearPickerGridView({
+class _MonthPickerGridView extends StatelessWidget {
+  const _MonthPickerGridView({
     Key? key,
-    required this.controller,
+    this.controller,
     required this.dragStartBehavior,
     required this.itemBuilder,
     required this.itemCount,
     required this.config,
   }) : super(key: key);
 
-  final ScrollController controller;
+  final ScrollController? controller;
   final DragStartBehavior dragStartBehavior;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
@@ -24,7 +21,7 @@ class YearPickerGridView extends StatelessWidget {
     return GridView.builder(
       controller: controller,
       dragStartBehavior: dragStartBehavior,
-      gridDelegate: _YearPickerGridDelegate(config: config),
+      gridDelegate: _MonthPickerGridDelegate(config: config),
       itemBuilder: itemBuilder,
       itemCount: itemCount,
       padding: EdgeInsets.symmetric(
@@ -34,8 +31,8 @@ class YearPickerGridView extends StatelessWidget {
   }
 }
 
-class _YearPickerGridDelegate extends SliverGridDelegate {
-  const _YearPickerGridDelegate({
+class _MonthPickerGridDelegate extends SliverGridDelegate {
+  const _MonthPickerGridDelegate({
     required this.config,
   });
 
@@ -48,6 +45,7 @@ class _YearPickerGridDelegate extends SliverGridDelegate {
     final double tileWidth =
         (constraints.crossAxisExtent - (cnf.columnCount - 1) * cnf.rowSpacing) /
             cnf.columnCount;
+
     return SliverGridRegularTileLayout(
       childCrossAxisExtent: tileWidth,
       childMainAxisExtent: cnf.rowHeight,
@@ -59,5 +57,5 @@ class _YearPickerGridDelegate extends SliverGridDelegate {
   }
 
   @override
-  bool shouldRelayout(_YearPickerGridDelegate oldDelegate) => false;
+  bool shouldRelayout(_MonthPickerGridDelegate oldDelegate) => false;
 }
